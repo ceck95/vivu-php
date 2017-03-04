@@ -1,0 +1,109 @@
+<header class="header  header--pushed header-image">
+    <div class="header__container container clearfix">
+        <h1 class="header__logo">
+            <a href="/" class="header__link"><img src="../../images/logo.png" class="header__logo-image"></a>
+        </h1>
+        <ul class="header__actions list--unstyled">
+            <li class="header__actions-item">
+                <a>Login</a>
+            </li>
+            <li class="header__actions-item">
+                <a>Register</a>
+            </li>
+            <li class="header__actions-item" data-cart-view="data-cart-view" ng-mouseenter="handleHeader('border')">
+                <a>Cart (<span>{{dataCart.length || 0}}</span>)</a>
+                <div ng-include="'views/cart/cart_quick_view.html'"></div>
+            </li>
+        </ul>
+        <nav class="menu menu--desktop">
+            <ul class="menu__links menu__links--level-0  list--unstyled">
+                <li class="menu__item menu__item--active menu__item--has-submenu">
+
+                    <a class="menu__link">Men</a>
+
+                    <ul class="menu__links menu__links--level-1 menu__links--nested list--unstyled">
+                        <li class="menu__item" ng-repeat="cate in pagePartials.header.listCategory.men">
+                            <a class="menu__link" ng-href="/home#/category/{{cate.url_key}}">{{cate.name}}</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="menu__item  menu__item--has-submenu">
+                    <a class="menu__link">Women</a>
+                    <ul class="menu__links menu__links--level-1 menu__links--nested list--unstyled">
+                        <li class="menu__item" ng-repeat="cate in pagePartials.header.listCategory.women">
+                            <a class="menu__link" ng-href="/home#/category/{{cate.url_key}}">{{cate.name}}</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="menu__item menu__item--has-submenu">
+                    <a class="menu__link">Design</a>
+                    <ul class="menu__links menu__links--nested menu__links--level-1 menu__mega-nav mega-nav category-men-womnen">
+                        <!--                        <li class="mega-nav__image-container">-->
+                        <!--                            <img class="mega-nav__image" src="images/navigation_horizontal_image.jpg">-->
+                        <!--                        </li>-->
+                        <li class="mega-nav__dropdown-column dropdown-column">
+                            <a class="dropdown-column__title">Men</a>
+                            <ul class="dropdown-column__list list--unstyled">
+                                <li class="dropdown-column__list-item"
+                                    ng-repeat="cate in pagePartials.header.listCategory.men">
+                                    <a class="dropdown-column__list-link" ng-href="/home#/category/{{cate.url_key}}">{{cate.name}}</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="mega-nav__dropdown-column dropdown-column">
+                            <a class="dropdown-column__title">Women</a>
+                            <ul class="dropdown-column__list list--unstyled">
+                                <li class="dropdown-column__list-item"
+                                    ng-repeat="cate in pagePartials.header.listCategory.women">
+                                    <a class="dropdown-column__list-link" ng-href="/home#/category/{{cate.url_key}}">{{cate.name}}</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="menu__item  ">
+                    <a href="/home#/special" class="menu__link not-has-submenu">
+                        Special
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="/site/contact" class="menu__link not-has-submenu">
+                        Contact
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="/search" class="menu__link" data-action="open-mega-search" title="Search">
+                        <svg class="icon icon-search">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-search">
+                            </use>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="header__push">
+        <div class="container">
+            <div class="inner">
+                <nav class="breadcrumb" role="navigation" style="background-color: #fff">
+                    <ul class="breadcrumb__list list--unstyled">
+                        <li class="breadcrumb__item">
+                            <span class="breadcrumb__title"><a href="/">Home</a></span>
+                        </li>
+
+                        <li ng-repeat="item in breadCrumbs.list" class="breadcrumb__item"
+                            ng-class="item.active?'breadcrumb__item--active':''">
+                            <span class="breadcrumb__title">
+                                <a ng-href="{{item.link}}">{{item.name}}</a>
+                            </span>
+                        </li>
+
+                    </ul>
+                </nav>
+                <div class="header__push-content">
+                    <h1 class="header__push-title">{{$parent.breadCrumbs.textTitle}}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

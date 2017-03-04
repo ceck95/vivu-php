@@ -1,0 +1,30 @@
+{
+  "name": "angular",
+  "version": "0.0.0",
+  "dependencies": {
+    "angular": "^1.4.0",
+    "angular-animate": "^1.4.0",
+    "angular-cookies": "^1.4.0",
+    "angular-route": "^1.4.0",
+    "font-awesome": "^4.6.3",
+    "angular-scroll-glue": "^2.0.7",
+    "angular-sanitize": "^1.5.9",
+    "angular-nicescroll": "^0.0.9",
+    "angular-click-outside": "^2.10.1",
+    "angular-truncate": "angularjs-truncate#*"
+  },
+  "devDependencies": {
+    "angular-mocks": "^1.4.0"
+  },
+  "appPath": "web",
+  "moduleName": "app",
+  "overrides": {
+    "bootstrap": {
+      "main": [
+        "less/bootstrap.less",
+        "dist/css/bootstrap.css",
+        "dist/js/bootstrap.js"
+      ]
+    }
+  }
+}

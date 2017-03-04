@@ -1,0 +1,258 @@
+<style>
+    .b-product-gallery__caption-btn a:hover {
+        cursor: pointer;
+    }
+</style>
+<div class="l-pdp__main">
+    <div class="b-product-main__img b-product-gallery"
+         ng-class="zoom?'b-product-gallery_expanded':''">
+        <div class="b-product-gallery__inner">
+            <div class="b-product-gallery__img-container">
+                <img ng-src="{{linkCdn}}{{imageZoom}}">
+                <div ng-show="zoom" class="b-carousel b-carousel_zoomed-image">
+                    <button ng-click="slideZoom('prev')"
+                            class="b-carousel__arrow b-carousel__arrow_l {{btnSlideZoomPrev}}">
+                        <span class="i-wai-hide">Prev</span><i
+                            class="i-ico i-ico_arrow-left b-carousel__arrow-ico"></i>
+                    </button>
+                    <button ng-click="slideZoom('next')"
+                            class="b-carousel__arrow b-carousel__arrow_r {{btnSlideZoomNext}}">
+                        <span class="i-wai-hide">Next</span><i
+                            class="i-ico i-ico_arrow-right b-carousel__arrow-ico"></i>
+                    </button>
+                </div>
+            </div>
+
+
+            <div class="b-product-gallery__caption">
+                <div class="b-product-gallery__caption-actions">
+                    <div class="b-product-gallery__caption-btn">
+                        <a ng-click="zoomHandle()" class="b-product-gallery__ln-btn icon-zoom-hover"
+                           role="button"
+                           target="_self">
+                            <i class="i-ico i-ico_zoom" style="color:#686868"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="b-product-gallery__thumbs">
+                    <div class="b-carousel b-carousel_thumb">
+                        <div class="b-carousel__inner">
+                            <div class="b-carousel__items">
+                                <div class="slide caroufredsel_wrapper"
+                                     style="display: block; text-align: start; float: none; position: relative; top: auto; right: auto; bottom: auto; left: auto; z-index: auto; width: 495px; height: 115px; margin: 0px; overflow: hidden; cursor: move;">
+                                    <div data-fred-carousel="" data-carousel-id="'productThumbnails'"
+                                         style="text-align: left; float: none; position: absolute; top: 0px; right: auto; bottom: auto; left: 0px; margin: 0px; width: 2079px; height: 115px;">
+                                        <!-- classActive: js-carousel-item-active -->
+                                        <div ng-repeat="image in dataImageColorReview" class="b-carousel__item"
+                                             ng-class="selectedPCImagePreview === image.id ? 'js-carousel-item-active':'null'"
+                                             ng-click="setSelectedPCImagePreview(image)"
+                                             style="width: 99px;">
+                                            <img alt="{{image.path}}"
+                                                 title="{{image.path}}" class="i-img-resp"
+                                                 ng-src="{{linkCdn}}{{image.path}}"
+                                                 style="display: block;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button ng-click="slideImageReview('prev')"
+                                    class="b-carousel__arrow b-carousel__arrow_l js_prev_btn prev {{btnPrevColorReview}}"
+                                    style="display: inline-block;"><span class="i-wai-hide">Prev</span><i
+                                    class="i-ico i-ico_arrow-left b-carousel__arrow-ico"></i></button>
+                            <button ng-click="slideImageReview('next')"
+                                    class="b-carousel__arrow b-carousel__arrow_r js_next_btn next {{btnNextColorReview}}"
+                                    style="display: inline-block;"><span class="i-wai-hide">Next</span><i
+                                    class="i-ico i-ico_arrow-right b-carousel__arrow-ico"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <aside class="b-product-gallery__info">
+            <p class="b-product-main__name">{{dataView.name}}</p>
+            <div class="b-product-main__price">
+                <span class="b-price">
+                    <span>
+                        <span class="b-price__digit">
+                                <i class="b-price__curr">$</i><span>{{dataView.base_price}}</span>
+                        </span>
+                    </span>
+                </span>
+            </div>
+
+            <button class="b-btn b-btn_black b-btn_form b-btn_full-width" title="Add to Cart">Add to Cart</button>
+            <button ng-click="zoomHandle()"
+                    class="b-btn b-btn_transparent b-btn_form b-btn_full-width">
+                <i class="i-ico i-ico_unzoom"></i>
+                Close Zoom
+            </button>
+        </aside>
+    </div>
+
+</div>
+<div class="l-pdp__aside" style="text-align: left">
+    <div class="b-product-main__details">
+        <form>
+            <div class="b-product-main__details-main">
+                <div class="l-product-aside">
+                    <div class="l-product-aside__top">
+                        <div class="l-product-aside__section l-product-aside__section_no-top-padding l-product-aside__section_no-bd l-product-aside__section_main">
+                            <div class="b-product-main__name-container">
+                                <h1 class="b-product-main__name" itemprop="name">
+                                    {{dataView.name}}</h1>
+                                <p class="b-product-main__sku">
+                                    <span>Style # </span>
+                                    <span>{{dataView.sku}}</span>
+                                </p>
+
+                                <h2 class="b-product-main__short-desc">{{dataView.head_line}}</h2>
+                            </div>
+
+                            <div class="l-asided">
+                                <div class="l-asided__item l-asided__item_l">
+                                    <div>
+                                        <div class="b-product-main__price">
+                                            <span class="b-price">
+                                                <span>
+                                                    <span class="b-price__digit">
+                                                        <i class="b-price__curr">$</i><span>{{priceCurrent}}</span>
+                                                    </span>
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="l-asided__item l-asided__item_r">
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-if="dataImageColor.length != 0">
+                            <div class="l-product-aside__section l-product-aside__section_color">
+
+                                <div class="b-color-variation">
+                                    <p class="b-color-variation__msg">
+                                        <strong class="b-color-variation__msg__label">Selected Color</strong>
+                                    </p>
+                                    <div class="b-carousel b-carousel_colors">
+                                        <div class="b-carousel__inner">
+                                            <div class="b-carousel__items">
+
+                                                <div class="caroufredsel_wrapper">
+                                                    <div>
+                                                        <ul class="b-carousel__item b-color-variation__holder-item"
+                                                            style="width: 278px;">
+                                                            <li class="b-color-variation__item"
+                                                                ng-repeat="item in dataImageColor"
+                                                                ng-click="setSelectedProductColor($index)"
+                                                                ng-class="selectedProductColor === $index?'selected':null"
+                                                                title="{{item.color_name}}"
+                                                                style="background-image: url('{{linkCdn}}{{item.refer_product_image_path}}');">
+                                                                <span class="i-wai-hide">Dusk Blue/Black - Coated Nylon</span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                                <button ng-click="slideImageColor('prev')"
+                                                        class="b-carousel__arrow b-carousel__arrow_l js_carousel_prev prev {{btnPrevImageColor}}"
+                                                        tabindex="-1"
+                                                        style="display: inline-block;"><span
+                                                        class="i-wai-hide">Prev</span><i
+                                                        class="i-ico i-ico_arrow-left b-carousel__arrow-ico"></i>
+                                                </button>
+                                                <button ng-click="slideImageColor('next')"
+                                                        class="b-carousel__arrow b-carousel__arrow_r js_carousel_next next {{btnNextImageColor}}"
+                                                        tabindex="-1"
+                                                        style="display: inline-block;"><span
+                                                        class="i-wai-hide">Next</span><i
+                                                        class="i-ico i-ico_arrow-right b-carousel__arrow-ico"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="l-product-aside__middle">
+                        <div>
+                            <div class="l-product-aside__section l-product-aside__section_size">
+                                <div class="l-asided">
+                                    <div class="l-asided__item l-asided__item_r">
+                                        <div class="b-pdp-quantity">
+                                            <div class="select">
+                                                <span click-outside="clickToggleQuantity('outSide')"
+                                                      id="quantitySelectBoxItContainer"
+                                                      class="selectboxit-container js-visually-hidden-select">
+                                                    <span ng-click="clickToggleQuantity()"
+                                                          id="quantitySelectBoxIt"
+                                                          class="selectboxit  selectboxit-enabled selectboxit-btn {{viewQuantity?'selectboxit-open':''}}"
+                                                          name="quantity" tabindex="0"
+                                                          style="width: 102px;">
+                                                            <span id="quantitySelectBoxItText"
+                                                                  class="selectboxit-text"
+                                                                  style="max-width: 58px;">{{selectedQuantity}}</span>
+                                                            <span id="quantitySelectBoxItArrowContainer"
+                                                                  class="selectboxit-arrow-container"><i
+                                                                    id="quantitySelectBoxItArrow"
+                                                                    class="selectboxit-arrow selectboxit-default-arrow"></i>
+                                                            </span>
+                                                    </span>
+                                                    <ul ng-show="viewQuantity"
+                                                        id="quantitySelectBoxItOptions"
+                                                        class="selectboxit-options selectboxit-list jspScrollable"
+                                                        style="display: block">
+                                                        <div class="jspContainer"
+                                                             style="width: 80px; height: 260px;"
+                                                             ng-nicescroll
+                                                             nice-option="{cursorcolor: '#555555'}"
+                                                             nice-scroll-top-end="topEndComplete()"
+                                                             nice-scroll-end="endScroll()">
+                                                            <div class="jspPane"
+                                                                 style="padding: 0px; width: 71px; top: 0px;">
+                                                                <li id="0"
+                                                                    ng-repeat="itemQuantity in listQuantity"
+                                                                    class="selectboxit-option"
+                                                                    ng-class="itemQuantity.selected ? 'selectboxit-selected':''"
+                                                                    ng-click="selectQuantity(itemQuantity)"
+                                                                    role="option">
+                                                                        <a class="selectboxit-option-anchor">
+                                                                        <span class="selectboxit-option-icon-container">
+                                                                        <i class="selectboxit-option-icon  selectboxit-container"></i>
+                                                                        </span>{{itemQuantity.quantity}}</a>
+                                                                </li>
+                                                                </div>
+                                                            </div>
+                                                        </ul>
+                                                    </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="l-product-aside__bottom">
+                        <div class="l-product-aside__section l-product-aside__section_no-bd l-product-aside__section_submit">
+                            <div class="b-product-main__submit js-fixed-to-bottom">
+                                <button class="b-btn b-btn_black b-btn_form b-btn_full-width b-product-main__submit__btn"
+                                        type="submit" title="Add to Cart"
+                                        ng-click="addCart(dataView,selectedProductColor)">Add to Cart
+                                </button>
+                                <a href="#/design-product/{{dataView.url_key}}">
+                                    <button class="b-btn b-btn_black b-btn_form b-btn_full-width b-product-main__submit__btn"
+                                            title="Design">Design
+                                    </button>
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+</div>

@@ -1,0 +1,95 @@
+<body ng-controller="ProductDetailCtrl">
+<div class="l-pdp l-pdp_mob-tabl" style="padding-top: 5%">
+    <div class="l-line b-product-main b-product-main_pdp" ng-class="zoom?'l-pdp_one-column':''">
+        <div class="l-line__inner l-pdp__main-aux i-clfx">
+            <div ng-include="'views/components/_view-product.html'"></div>
+        </div>
+    </div>
+
+    <div class="l-pdp__line">
+        <div class="b-tabs b-tabs_desk b-tabs_tabl b-tabs_product b-accordion_mob b-accordion_product b-tabs"
+             id="js-dimensions-tab">
+            <ul class="b-tabs__menu">
+                <li ng-click="clickTabDemension()" class="b-tabs__el js-dim-tab-trigger {{activeDimensions}}">
+                    <a class="b-tabs__link">Dimensions</a>
+                </li>
+                <li ng-click="clickTabLifeTime()" class="b-tabs__el warranty_tab_title {{activeLifeTime}}">
+                    <a class="b-tabs__link">Lifetime Warranty</a>
+                </li>
+            </ul>
+            <div class="b-tabs__content">
+                <div class="b-product-info b-product-info_dimensions b-tabs__pane {{activeDimensions}}">
+                    <div class="b-tabs__content-header b-accordion__title js-mobile-dimensions-title b-accordion__content-dimensions-label">
+                        <span class="i-hide i-show_mobile-b">
+                            <h2 class="b-product-info__subtitle">Dimensions</h2>
+                        </span>
+
+                        <span ng-click="clickTabDemension()" class="b-tabs__btn-close i-btn-close i-inter-el i-hide_mobile" role="button"
+                              tabindex="0" data-close-btn="">
+                            <i class="i-btn-close__text">Close</i>
+                            <i class="i-ico i-ico_close"></i>
+                        </span>
+                    </div>
+                    <div class="b-accordion__content b-accordion__content-dimensions">
+                        <div>
+                            <div>
+                               <!-- <h2 class="b-product-info__title">External Dimensions</h2>-->
+                                <div class="mobile_scroll" ng-bind-html="dataView.size_info">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="b-product-info b-product-info_warranty b-tabs__pane {{activeLifeTime}}"
+                     title="Lifetime Warranty">
+                    <section>
+                        <div class="b-tabs__content-header b-accordion__title b-accordion__content-warranty-label"
+                             data-toggle-element="b-accordion__content-warranty">
+                            <span class="i-hide i-show_mobile-b">
+                                <h2 class="b-product-info__subtitle">Lifetime Warranty</h2>
+                            </span>
+
+                            <span ng-click="clickTabLifeTime()" class="b-tabs__btn-close i-btn-close i-inter-el i-hide_mobile"
+                                <i class="i-btn-close__text">Close</i>
+                                <i class="i-ico i-ico_close"></i>
+                            </span>
+                        </div>
+                        <div class="b-product-info__warranty-content b-accordion__content b-accordion__content-warranty">
+                            <div class="i-asset-wrapper" ng-bind-html="dataView.warranty_note">
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="l-line">
+        <div class="l-line__inner">
+            <section class="b-product-feature">
+                <div class="b-product-feature__inner">
+                    <div class="b-product-feature__top">
+                       <div class="b-product-feature__td b-product-about-design b-product-feature__td_divided" ng-bind-html="dataView.desc"></div>
+                    </div>
+                    <div>
+                        <div class="b-product-feature__td b-product-feature__td_w-3 b-product-feature__td_hr">
+                            <i class="b-product-feature__line"></i>
+                        </div>
+                    </div>
+                    <div class="b-product-feature__bottom">
+                        <div class="b-product-feature__td b-product-feature__td_w-2">
+                            <div class="b-product-feature__item">
+                                <h3 class="b-product-feature__title">What's this all about?</h3>
+                                <p class="b-product-feature__p" ng-bind-html="dataView.about"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+</div>
+</body>

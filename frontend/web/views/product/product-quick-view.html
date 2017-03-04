@@ -1,0 +1,43 @@
+<div ng-if="quickViewModal">
+    <div click-outside="clickModalQuickView()" class="b-modal js-modal-open"
+         style="width: 1021px; z-index: 3001; top: -100px;"><span
+            ng-click="clickModalQuickView()"
+            class="b-modal__btn-close i-btn-close i-btn-close_white" role="button" tabindex="0"><i
+            class="i-btn-close__text">Close</i><i class="i-ico i-ico_close"></i></span>
+        <div class="b-modal__holder-content">
+            <div>
+                <div class="l-pdp l-pdp_mob-tabl b-product-main b-product-main_qv"
+                     ng-class="zoom ? 'l-pdp_one-column':''">
+                    <div class="l-pdp__qv-aux i-clfx">
+                        <div ng-include="'views/components/_view-product.html'"></div>
+                    </div>
+
+
+                    <div style="text-align: left">
+                        <section class="b-product-features l-pdp ">
+                            <h2 class="b-product-features__title">Key Features</h2>
+                            <p class="b-product-features__content l-pdp__main">
+                                <span ng-bind-html="dataView.about | characters:truncateProduct: false"></span>
+                                <a title="Copilot Luggage Roller" target="_self"
+                                   href="#product/{{dataView.url_key}}">
+                                    <strong>Read more</strong>
+                                </a>
+                            </p>
+                            <div class="l-pdp__aside">
+                                <div class="l-product-aside__section l-product-aside__section_no-bd l-product-aside__section_submit l-product-aside__section_submit_qv">
+                                    <a class="b-btn b-btn_transparent b-btn_form b-btn_full-width"
+                                       title="Copilot Luggage Roller" target="_self"
+                                       href="#product/{{dataView.url_key}}">
+                                        View All Details
+                                    </a>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="b-modal__overlay js-modal-open" style="z-index: 3000;"></div>
+</div>

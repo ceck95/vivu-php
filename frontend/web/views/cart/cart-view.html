@@ -1,0 +1,308 @@
+<div class="l-line__inner" style="padding: 1% 0px 3% 0px">
+    <div class="l-cart__container">
+
+        <div class="b-cart__header l-cart__header">
+            <div class="l-cart__header__top l-asided l-asided_cart-header">
+                <div class="l-asided__item l-asided__item_l">
+                    <h1 class="b-cart__header__title text-header-cart-view">Shopping Cart</h1>
+                </div>
+                <div class="l-asided__item l-asided__item_r" ng-if="dataCart.length > 0 ?true:false">
+                    <div>
+								<span class="b-btn b-btn_form b-btn_black b-btn_wide i-hide_mobile" role="button"
+                                      tabindex="0">
+									Checkout
+								</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="i-hide i-show_mobile-b">
+                <div class="b-cart__caption l-cart__header__bottom l-asided">
+                    <div class="l-asided__item l-asided__item_l">
+                        <div class="b-cart__caption-label">
+                            Total <span class="b-cart__caption-label__emph">(estimated)</span>
+                        </div>
+                    </div>
+                    <div class="l-asided__item l-asided__item_r">
+                        <div class="b-cart__caption-total">$159.00
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div style="padding-bottom: 1%" class="l-cart__content b-content-area" ng-if="dataCart.length > 0 ?false:true">
+            <h2>Your cart is currently empty.</h2>
+            <p>Let's find it a date for the prom!</p>
+
+            <a class="b-btn b-btn_form b-btn_black" href="/shop" target="_self">
+                Continue Shopping
+            </a>
+        </div>
+    </div>
+
+    <form ng-if="dataCart.length > 0 ?true:false" action="http://www.timbuk2.com/cart?dwcont=C334576864" method="post"
+          name="dwfrm_cart">
+
+        <button class="i-wai-hide" type="submit" name="dwfrm_cart_updateCart">
+            Update Cart
+        </button>
+        <div>
+            <div class="l-cart__container">
+                    <div class="b-product-cart l-product-cart" ng-repeat="itemCart in dataCart">
+                        <div class="l-product-cart__aside">
+                            <div class="b-product-cart__holder-image">
+                                <a class="b-product-cart__img"
+                                   target="_self"
+                                   ng-href="/home#/product/{{itemCart.product.url_key}}">
+                                    <img alt="{{itemCart.product.name}}" title="{{itemCart.product.name}}"
+                                         ng-src="{{linkCdn}}{{itemCart.productColor.refer_product_image_path}}">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="l-product-cart__main">
+                            <div class="l-product-cart__item-1">
+                                <div class="b-product-cart__name">
+                                    <div>
+                                        <div>
+                                            <a class="i-show_desktop i-show_tablet i-hide_mobile"
+                                               ng-href="/home#/product/{{itemCart.product.url_key}}">{{itemCart.product.name}}</a>
+                                            <a class="i-hide_desktop i-hide_tablet i-show_mobile"
+                                               ng-href="/home#/product/{{itemCart.product.url_key}}">{{itemCart.product.name}}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="b-product-cart__price-adjustment">
+                                </div>
+                                <div class="b-product-cart__id">
+                                    <span>Style #</span><span>{{itemCart.product.sku}}</span>
+                                </div>
+                            </div>
+                            <div class="l-product-cart__item-2">
+
+                                <div class="l-product-cart__asided">
+                                    <div class="l-product-cart__asided-l">
+                                        <div>
+                                            <div class="b-cart__msg b-cart__msg_red b-cart__msg_narrow in_stock">
+                                                In Stock
+                                            </div>
+                                        </div>
+                                        <div class="b-cart__msg b-cart__msg_grey b-cart__msg_narrow"
+                                        ></div>
+                                        <div ng-show="messageQty" class="b-price__digit_sale b-cart__msg b-cart__msg_red b-cart__msg_narrow">Please enter a valid
+                                            quantity to
+                                            continue
+                                        </div>
+                                    </div>
+                                    <div class="l-product-cart__asided-r">
+                                        <div class="l-product-cart__actions">
+                                            <div class="l-product-cart__actions-l">
+                                                <button class="b-btn b-btn_small b-btn_transparent b-btn_wide i-hide_mobile"
+                                                        type="submit"
+                                                        name="dwfrm_cart_shipments_i0_items_i0_deleteProduct">Remove
+                                                </button>
+                                                <button class="b-product-cart__rm-btn-mob i-hide_desktop i-hide_tablet i-show_mobile-b i-ico i-ico_close"
+                                                        type="submit"
+                                                        name="dwfrm_cart_shipments_i0_items_i0_deleteProduct"></button>
+                                            </div>
+                                            <div class="l-product-cart__actions-r">
+                                                <input class="b-product-cart__qty-input"
+                                                       type="text"
+                                                       name="dwfrm_cart_shipments_i0_items_i0_quantity"
+                                                       ng-model="itemCart.qty" click-outside="changeQuantity(itemCart)">
+                                            </div>
+                                        </div>
+
+                                        <div class="b-product-cart__price l-product-cart__price">
+
+
+                                            <div class="pricing_total adjusted_price">
+                                                <span class="price_adjusted">
+		<span class="price_currency">$</span>
+		<span>{{itemCart.base_price}}</span>
+	</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="l-product-cart__item-3">
+                                <div class="b-product-cart__details">
+                                    <div>
+                                        <div>
+                                            <div class="b-product-cart__attr-wr">
+                                                <div class="b-product-cart__attr">
+                                                    <span class="b-product-cart__attr-label">color</span>
+                                                    <span class="b-product-cart__attr-value">{{itemCart.productColor.color_name}}</span>
+                                                </div>
+                                            </div>
+                                            <!--<div class="b-product-cart__attr-wr">
+                                                <div class="b-product-cart__attr">
+                                                    <span class="b-product-cart__attr-label">size</span>
+                                                    <span class="b-product-cart__attr-value">Medium</span>
+                                                </div>
+                                            </div>-->
+                                            <div class="b-product-cart__attr-wr">
+                                                <div class="b-product-cart__attr">
+                                                    <span class="b-product-cart__attr-label">Price</span>
+                                                    <span class="b-product-cart__attr-value">
+
+
+
+	<div>
+	<span class="b-price">
+		<span>
+            <span>
+				<span class="b-price__digit">
+					<i class="b-price__curr">$</i><span>{{itemCart.base_price}}</span>
+				</span>
+
+				<!--<span class="b-price__digit_sale">
+                    <span class="b-price__digit">
+						<i class="b-price__curr">$</i><span>225</span>
+					</span>
+				</span>-->
+			</span>
+		</span>
+	</span>
+</div>
+
+									</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="b-product-cart__standard-info">
+
+
+                                    <div class="i-asset-wrapper">
+                                        Non-custom products ship in 2-5 business days;
+                                        5-10 business days for custom products
+                                        Note: All orders placed after 11:30AM PST on December 30th will begin processing
+                                        on January 8th 2017.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <!--      <div class="b-cart__msg b-cart__msg_red b-cart__msg_oos">
+                          <p>We are sorry. The following item(s) are no longer available and have been removed from your
+                              cart:</p>
+                      </div>
+
+                      <div class="l-cart__msg-area">
+
+                          <div class="b-cart__msg">
+                              We want to give you something *for free*.
+                          </div>
+
+                      </div>-->
+            </div>
+
+
+            <div class="l-cart-summary">
+                <div class="l-cart-summary__main">
+                    <section class="b-order-summary">
+                        <table class="b-order-summary__body">
+                            <tbody>
+                            <tr class="b-order-summary__row-subtotal">
+                                <td class="b-order-summary__label">
+                                    <span class="text-subtotal-cart-view">Order Subtotal</span>
+                                </td>
+                                <td class="b-order-summary__val">
+                                    <span class="price-subtotal-cart-view">${{sumPriceCart()}}</span>
+                                </td>
+                            </tr>
+                            <!-- <tr class="b-order-summary__row-shipping">
+                                 <td class="b-order-summary__label">
+                                     Shipping -
+                                     <span>Economy - UPS/USPS</span>
+                                     <span>(estimated)</span>
+                         &lt;!&ndash;        </td>
+                                 <span>$0.00</span>
+                                 <span>Free</span>
+                                 </td>&ndash;&gt;
+
+
+                             </tr>-->
+                            <!--<td class="b-order-summary__val">-->
+                            <!--           <tr class="b-order-summary__row-subtotal">
+                                           <td class="b-order-summary__label">
+                                               <span>Order Discount</span>
+                                           </td>
+                                           <td class="b-order-summary__val">
+                                               <span></span>
+                                           </td>
+                                       </tr>-->
+                            <tr class="b-order-summary__row-total">
+                                <td class="b-order-summary__label">
+                                    <p class="text-subtotal-cart-view">
+                                        Total
+                                        <span class="b-order-summary__subscript">(estimated)</span>
+                                    </p>
+                                </td>
+                                <td class="b-order-summary__val">
+                                    <span class="price-total-cart-view">${{sumPriceCart()}}</span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="row" style="padding: 1% 0px 1% 0px">
+                            <div class="col-md-6">
+                                <div class="b-checkout-submit__btn b-checkout-submit__btn_r b-paypal-btn b-paypal-btn_cart">
+                                    <a class="b-btn b-btn_form b-btn_full-width b-btn_transparent"
+                                       href="https://www.timbuk2.com/on/demandware.store/Sites-Timbuk2-Site/en_US/COCheckout-PaypalCheckoutFromCart"
+                                       target="_self">
+                                        <span class="b-paypal-btn__text">Checkout with</span>
+                                        <img class="b-paypal-btn__img"
+                                             src="http://demandware.edgesuite.net/aaom_prd/on/demandware.static/Sites-Timbuk2-Site/-/default/dw61fab9b3/images/logo-paypal.svg">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="b-checkout-submit__btn b-checkout-submit__btn_l">
+                                <span class="b-btn b-btn_form b-btn_full-width b-btn_black" role="button">
+                                    Checkout
+                                </span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="b-checkout-submit fixed_button">
+
+                            <div class="b-checkout-submit__btn b-checkout-submit__btn_r b-paypal-btn b-paypal-btn_cart">
+                                <a class="b-btn b-btn_form b-btn_full-width b-btn_transparent"
+                                   href="https://www.timbuk2.com/on/demandware.store/Sites-Timbuk2-Site/en_US/COCheckout-PaypalCheckoutFromCart"
+                                   target="_self">
+                                    <span class="b-paypal-btn__text">Checkout with</span>
+                                    <img class="b-paypal-btn__img"
+                                         src="http://demandware.edgesuite.net/aaom_prd/on/demandware.static/Sites-Timbuk2-Site/-/default/dw61fab9b3/images/logo-paypal.svg">
+                                </a>
+                            </div>
+
+                            <div class="b-checkout-submit__btn b-checkout-submit__btn_l">
+                                <span class="b-btn b-btn_form b-btn_full-width b-btn_black" role="button">
+                                    Checkout
+                                </span>
+                            </div>
+                        </div>-->
+
+                        <footer class="b-order-summary__footer">
+                            <p>Need help placing your order? <a href="http://www.timbuk2.com/contact" target="_self">Contact
+                                Us</a></p>
+                            <p>Returned goods must be in perfect, unused condition with all original tags. <a
+                                    href="http://www.timbuk2.com/content/returnpolicy.html" target="_self">Returns
+                                Policy</a></p>
+                        </footer>
+                    </section>
+                </div>
+            </div>
+
+
+        </div><!-- end ngIf: basket.numberOfItems + OOSProducts.length > 0 -->
+    </form>
+
+</div>

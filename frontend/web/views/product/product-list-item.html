@@ -1,0 +1,57 @@
+<ul class="l-product-grid__inner">
+    <li class="l-product-grid__item" ng-repeat="item in listProducts" ng-mouseenter="showListColor = true;checkProductColors(item)" ng-mouseleave="showListColor = false;resetHandleListImage();">
+        <section class="b-product b-product_animated b-product_w-color-variations b-product_bordered js-images-loaded">
+            <div class="b-product__container b-product__ln-holder" tabindex="0">
+                <div class="b-product__holder-image js_product_tile">
+                    <a href="">
+                        <img ng-src="{{linkCdn}}{{item.image_path}}" class="b-product__image">
+                    </a>
+                    <div class="b-product__quick-view js_tooltip_content">
+                        <a ng-click="clickModalQuickView({item})" class="b-btn b-btn_med b-btn_white" role="button" tabindex="0" target="_self">
+                            <i class="b-product__quick-view-ico i-ico i-ico_search"></i>Quick View
+                        </a>
+                    </div>
+                </div>
+                <div class="b-product__holder-info" style="height: 121px;">
+                    <div class="b-product__holder-info-inner">
+                        <div class="b-product__info-top">
+                            <div class="b-carousel b-carousel_swatches">
+                                <div class="b-carousel__inner" ng-show="showListColor">
+                                    <div class="b-carousel__items">
+                                        <div class="caroufredsel_wrapper" style="display: block; text-align: center; float: none; position: relative; top: auto; right: auto; bottom: auto; left: auto; z-index: auto; width: 240px; height: 55px; margin: 0px; overflow: hidden; cursor: move;">
+                                          <!--  <div class="slider">-->
+                                                <div class="slide slide-animation b-carousel__item" ng-repeat="e in item.productColors" ng-mouseenter="seenterProductColor(item,e)" ng-click="clickChangeProductColor(item,e,$index)" style="width: 80px;">
+                                                    <img ng-src="{{linkCdn}}{{e.refer_product_image_path}}">
+                                                </div>
+                                           <!-- </div>-->
+                                        </div>
+                                        <button ng-click="slide('prev',item)" class="b-carousel__arrow b-carousel__arrow_l js_carousel_prev prev {{disablePrev}}" tabindex="-1" style="display: inline-block;"><span class="i-wai-hide">Prev</span><i class="i-ico i-ico_arrow-left b-carousel__arrow-ico"></i></button>
+                                        <button ng-click="slide('next',item)" class="b-carousel__arrow b-carousel__arrow_r js_carousel_next next {{disableNext}}" tabindex="-1" style="display: inline-block;"><span class="i-wai-hide">Next</span><i class="i-ico i-ico_arrow-right b-carousel__arrow-ico"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#product/{{item.url_key}}">
+                                <h4 class="b-product__name">{{item.name}}</h4>
+                            </a>
+                            <div class="b-product__price">
+                                <span class="b-price">
+                                  <span class="b-price__digit">
+                                    <i class="b-price__curr">$</i>
+                                    <span>{{item.base_price}}</span>
+                                </span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="b-product__info-bottom">
+                            <span style="display:block">{{item.sizeProductColor}} colors</span>
+                            <span>
+                              <span class="b-product-attr b-product-attr_plp">NEW!</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </li>
+</ul>
+<div ng-include="'views/product/product-quick-view.html'"></div>

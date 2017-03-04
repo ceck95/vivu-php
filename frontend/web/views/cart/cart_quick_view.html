@@ -1,0 +1,71 @@
+<div ng-if="dataCart.length > 0 ? true :false"
+     ng-mouseleave="handleHeader('in')"
+     ng-show="showQuickCart" class="b-minicart__content js-minicart-show" }}>
+    <div class="js-minicart-products-wrapper"
+         style="max-height: 300px; overflow: hidden; padding: 0px; width: 370px;" tabindex="0" ng-nicescroll
+         nice-option="{cursorcolor: '#555555',autohidemode:false,cursorwidth:'8px'}"
+         nice-scroll-top-end="topEndComplete()"
+         nice-scroll-end="endScroll()">
+        <div class="js-minicart-products i-clfx">
+            <div class="b-minicart__item" ng-repeat="itemCart in dataCart">
+                <a class="b-product-mini i-clfx"
+                   href="/home#/product/{{itemCart.product.url_key}}">
+                    <div class="b-product-mini__product-title">
+                        <span>{{itemCart.product.name}}</span>
+                        <div class="name"></div>
+                    </div>
+                    <div class="b-product-mini__image-wrapper">
+                        <img class="b-product-mini__image"
+                             alt="{{itemCart.productColor.color_name}}"
+                             ng-src="{{linkCdn}}{{itemCart.productColor.refer_product_image_path}}">
+                    </div>
+                    <div class="b-product-mini__product-description">
+                        <div class="b-product-mini__product-attributes">
+                            <!--        <div class="attribute">
+                                        <span class="label">size</span>&nbsp;
+                                        <span class="value">M</span>
+                                    </div>-->
+                        </div>
+
+
+                        <div class="ng-isolate-scope pricing_total">
+                                        <span class="price_adjusted">
+                                            <span class="price_currency ng-binding">$</span>
+                                            <span>{{itemCart.base_price}}</span>
+                                        </span>
+                        </div>
+
+                        <div class="b-product-mini__product-quantity">
+                            <div>
+                                <span>x</span>
+                                <span>{{itemCart.qty}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <span ng-click="removeProduct(itemCart)" class="b-minicart__item__rm-btn" role="button" tabindex="0"><i
+                        class="i-ico i-ico_close"></i></span>
+            </div>
+        </div>
+    </div>
+    <div class="b-minicart__totals">
+        <div class="b-minicart__totals-inner">
+            <div class="b-minicart__totals-cell b-minicart__price-totals">
+                <span class="b-minicart__price-totals__currency">$</span>
+                <span>{{sumPriceCart()}}</span>
+            </div>
+            <!--<div class="b-minicart__totals-cell b-minicart__promotion">
+                <p><strong>Free Shipping on $75+</strong></p>
+            </div>-->
+        </div>
+    </div>
+    <div class="b-minicart__actions">
+        <span>
+            <a class="b-minicart__actions__btn-frst b-btn b-btn_regular b-btn_black" href="" target="_self">Checkout</a>
+        </span>
+        <span>
+            <a class="b-btn b-btn_regular b-btn_transparent" href="/home#/cart/view"
+               target="_self">View Cart</a>
+        </span>
+    </div>
+</div>

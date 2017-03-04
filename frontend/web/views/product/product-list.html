@@ -1,0 +1,31 @@
+<body class="js-theme-light" ng-controller="ProductCtrl">
+<div class="l-container">
+    <div class="i-clfx">
+        <div class="b-page-search b-page-plp">
+            <div class="b-page-search__head">
+                <div class="l-filtering-container b-filters  b-page-search__content l-line l-line_full-width">
+                    <div class="l-line__inner">
+                        <div class="l-product-grid grid" id="js-results-products">
+                            <div ng-include="'views/product/product-list-item.html'"></div>
+                            <div class="b-page-search__actions">
+                                <div ng-hide="loadProducts" class="b-spinner b-page-search__spinner">
+                                    <i class="b-spinner__item b-spinner__item_1"></i>
+                                    <i class="b-spinner__item b-spinner__item_2"></i>
+                                    <i class="b-spinner__item b-spinner__item_3"></i>
+                                </div>
+                            </div>
+                            <ul class="pagination" ng-show="listPaginate.length > 0 ? true : false">
+                                <li><a ng-click="clickPagination('prev')">«</a></li>
+                                <li><a ng-repeat="paginateItem in listPaginate"
+                                       ng-class="$index==selectedPagination?'active':''"
+                                       ng-click="selectedPaginationClick(paginateItem)">{{paginateItem}}</a></li>
+                                <li><a ng-click="clickPagination('next')">»</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>

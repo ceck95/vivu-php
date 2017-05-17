@@ -5,7 +5,7 @@
 
 use common\core\web\mvc\form\BaseActiveForm;
 
-$this->title                   = Yii::t('app', 'CO.kool CMS');
+$this->title                   = \common\Factory::$app->name.'CMS';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

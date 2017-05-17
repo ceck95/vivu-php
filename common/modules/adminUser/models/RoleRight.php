@@ -27,7 +27,7 @@ class RoleRight extends BaseModel
      */
     public static function tableName()
     {
-        return 'adminuser_role_right';
+        return 'adminuser.role_right';
     }
 
     /**

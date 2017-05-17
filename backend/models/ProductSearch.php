@@ -19,9 +19,8 @@ class ProductSearch extends Product
 
         $query->andFilterWhere([
             'category_id' => $this->category_id,
-            'is_featured' => $this->is_featured,
-            'is_special' => $this->is_special,
             'is_sold_out' => $this->is_sold_out,
+            'is_product_color' => $this->is_product_color,
             'status' => $this->status,
         ]);
 
@@ -29,8 +28,9 @@ class ProductSearch extends Product
         $query->andFilterCompare('created_at', $this->created_at, '=');
 
         $query->andFilterWhereLowercase(['like', 'name', $this->name])
-            ->andFilterWhereLowercase(['like', 'sku', $this->sku])
-            ->andFilterWhereLowercase(['like', 'type', $this->type]);
+            ->andFilterWhereLowercase(['like', 'sku', $this->sku]);
+
+        $query->orderBy(['updated_at' => SORT_DESC, 'created_at' => SORT_DESC]);
 
         return $dataProvider;
     }

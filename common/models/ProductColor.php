@@ -29,8 +29,11 @@ class ProductColor extends BaseModel
      */
     public static function tableName()
     {
-        return 'product_color';
+        return 'vv.product_color';
     }
+
+    const PRICE_NOT_COLOR = 0;
+    const PRIORITY_NOT_COLOR = 0;
 
     /**
      * @inheritdoc

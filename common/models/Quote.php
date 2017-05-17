@@ -28,7 +28,7 @@ class Quote extends BaseModel
      */
     public static function tableName()
     {
-        return 'quote';
+        return 'vv.quote';
     }
 
     /**

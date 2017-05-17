@@ -11,12 +11,16 @@ use common\modules\file\widgets\FileUploadWidget;
  * @var $model common\models\Product
  * @var $form common\core\web\mvc\form\BaseActiveForm
  * @var $categoryList
+ * @var $categoryGroupList
  */
+$this->registerJsFile('@web/js/product.js', ['depends' => [\backend\assets\AppAsset::class]]);
 ?>
 
 <div class="product-form">
 
-    <?php $form = BaseActiveForm::beginMultipart(); ?>
+    <?php $form = BaseActiveForm::beginMultipart([
+        'enableClientValidation' => true
+    ]); ?>
 
     <div class="row">
         <div class="col-md-12">
@@ -25,7 +29,18 @@ use common\modules\file\widgets\FileUploadWidget;
                     <div class="panel-title"><?= Yii::t('app', 'Product') ?></div>
                 </div>
                 <div class="panel-body">
-                    <?= $form->field($model, 'category_id')->dropDownListWithPrompt($categoryList) ?>
+                    <div class="form-group">
+                        <label class="control-label"
+                               for="product-category_group"><?= \common\models\Category::labelOf('category_group_id') ?></label>
+                        <select class="select2 form-control category-group">
+                            <option value="">Select one</option>
+                            <?php foreach ($categoryGroupList as $key => $value): ?>
+                                <option value="<?= $key ?>"><?= $value ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+
+                    <?= $form->field($model, 'category_id')->dropDownListWithPrompt([]) ?>
 
                     <?= $form->field($model, 'name')->textInput(['id' => '_name_for_slug']) ?>
 
@@ -33,34 +48,28 @@ use common\modules\file\widgets\FileUploadWidget;
 
                     <?= $form->field($model, 'sku')->textInput(['maxlength' => true]) ?>
 
-                    <?= $form->field($model, 'is_featured')->checkbox() ?>
-
-                    <?= $form->field($model, 'is_special')->checkbox() ?>
-
-                    <?= $form->field($model, 'type')->dropDownList(Product::types()) ?>
-
-                    <?= $form->field($model, 'desc')->textarea(['class' => 'ckeditor']) ?>
-
-                    <?= $form->field($model, 'about')->textarea(['class' => 'ckeditor']) ?>
-
-                    <?= $form->field($model, 'meta_desc')->textInput(['maxlength' => true]) ?>
-
-                    <?= $form->field($model, 'size_info')->textarea(['class' => 'ckeditor']) ?>
-
-                    <?= $form->field($model, 'warranty_note')->textarea(['class' => 'ckeditor']) ?>
+                    <?= $form->field($model, 'details')->textarea(['class' => 'ckeditor']) ?>
 
                     <?= FileUploadWidget::widget([
-                        'form'        => $form,
+                        'form' => $form,
                         'sourceModel' => $model,
                         'attr' => 'image_path',
-                        'options'     => [
+                        'options' => [
                             'accept' => 'image/*',
                         ],
                     ]) ?>
 
                     <?= $form->field($model, 'base_price', ['template' => $form->currencyTemplate])->textInput(['class' => 'touchspin2 form-control']) ?>
 
+                    <?= $form->field($model, 'notes')->textInput() ?>
+
+                    <?= $form->field($model, 'meta_desc')->textInput(['maxlength' => true]) ?>
+
                     <?= $form->field($model, 'is_sold_out')->checkbox() ?>
+
+                    <?php if ($model->isNewRecord): ?>
+                        <?= $form->field($model, 'is_product_color')->checkbox() ?>
+                    <?php endif; ?>
 
                     <?= $form->field($model, 'status')->dropDownList(Common::getStatusArr()) ?>
 

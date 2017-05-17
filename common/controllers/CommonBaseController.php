@@ -38,6 +38,8 @@ class CommonBaseController extends Controller
 
         $dataPost = \Yii::$app->request->post();
 
+        $post = null;
+
         if ($dataPost) {
 
             if (empty($path)) {

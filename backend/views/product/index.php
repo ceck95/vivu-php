@@ -19,16 +19,21 @@ $this->title = Yii::t('app', 'Products');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="product-index">
-    <p>
-        <?= Html::a(Yii::t('app', 'Create Product'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
     <?php Pjax::begin(); ?>
     <?= BaseGridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'rowOptions' => function (Product $model) {
+            if (count($model->productColors) === 0) {
+                return ['class' => 'highlight-common'];
+            } else {
+                return [];
+            }
+        },
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'image_path:imageGrid',
+            'name:raw',
             'category_id' => [
                 'attribute' => 'category_id',
                 'format' => 'raw',
@@ -40,21 +45,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $productSearch->category ? $productSearch->category->name : null;
                 },
             ],
-            'name:raw',
             'sku:raw',
-            'is_featured:boolean',
-            'is_special:boolean',
-            'type' => [
-                'attribute' => 'type',
-                'filter' => Html::activeDropDownList($searchModel, 'type', Product::types(), [
-                    'class' => 'form-control',
-                    'prompt' => Yii::t('app', 'All')
-                ]),
-                'value' => function (ProductSearch $model) {
-                    return BusinessProduct::types($model->type);
-                }
-            ],
             'base_price:currency',
+            'is_product_color:boolean',
             'is_sold_out:boolean',
             'created_at:datetime',
             'status' => Html::getStatusSearchForIndex($searchModel),
@@ -64,26 +57,23 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '{manage} {view} {update} {delete}',
                 'buttons' => [
                     'manage' => function ($url, ProductSearch $model) {
-                        switch ($model->type) {
-                            case Product::TYPE_SIMPLE :
-                                return Html::a('<i class="fa fa-cogs"></i>', [
-                                    'manage-simple-product',
-                                    'id' => $model->id
-                                ], [
-                                    'title' => Yii::t('app', 'Manage Product Relations'),
-                                ]);
-                                break;
-                            case Product::TYPE_DESIGN :
-                                return Html::a('<i class="fa fa-cogs"></i>', [
-                                    'manage-design-product',
-                                    'id' => $model->id
-                                ], [
-                                    'title' => Yii::t('app', 'Manage Product Relations'),
-                                ]);
-                                break;
-                            default:
-                                return null;
+                        if ($model->is_product_color) {
+                            return Html::a('<i class="fa fa-cogs"></i>', [
+                                'manage-simple-product',
+                                'id' => $model->id
+                            ], [
+                                'title' => Yii::t('app', 'Manage Product Relations'),
+                            ]);
                         }
+                        if (count($model->productColors) > 0) {
+                            return Html::a('<i class="fa fa-cogs"></i>', [
+                                'update-simple-product-color',
+                                'productColorId' => $model->productColors[0]->id
+                            ], [
+                                'title' => Yii::t('app', 'Manage Product Relations')
+                            ]);
+                        }
+                        return null;
                     }
                 ],
             ],

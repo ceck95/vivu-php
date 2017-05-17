@@ -22,7 +22,7 @@ class Role extends BaseModel
      */
     public static function tableName()
     {
-        return 'adminuser_role';
+        return 'adminuser.role';
     }
 
     /**

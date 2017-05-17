@@ -23,7 +23,7 @@ use Yii;
 
 class BackendApplication extends Application
 {
-    public $name = 'CO.kool';
+    public $name = 'Vivu';
 
     public $version = '1.0';
 

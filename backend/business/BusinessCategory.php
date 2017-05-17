@@ -2,6 +2,7 @@
 
 namespace backend\business;
 
+use common\models\CategoryGroup;
 use common\modules\file\business\BusinessFile;
 use common\utilities\ArraySimple;
 use Yii;
@@ -22,18 +23,6 @@ class BusinessCategory extends BaseBusinessPublisher
         return self::$_instance;
     }
 
-    public static function forGenders($val = false)
-    {
-        $arr = [
-            Category::FOR_MEN => Yii::t('app', 'Men'),
-            Category::FOR_WOMEN => Yii::t('app', 'Women'),
-        ];
-        if ($val !== false) {
-            return isset($arr[$val]) ? $arr[$val] : null;
-        }
-
-        return $arr;
-    }
 
     public function create(Category $model, ObjectScalar $requestData)
     {
@@ -54,6 +43,7 @@ class BusinessCategory extends BaseBusinessPublisher
         $status = $model->save($model);
         //uncomment if upload file
         if ($status) {
+
             BusinessFile::getInstance()->doUploadAndSave($model, [], ['image_path' => $model->name]);
         }
         return $status;
@@ -65,7 +55,7 @@ class BusinessCategory extends BaseBusinessPublisher
         return new Category(['priority' => $priority + 1]);
     }
 
-    public function findModel($id) : Category
+    public function findModel($id): Category
     {
         $model = Category::findOneOrFail($id);
 
@@ -77,15 +67,14 @@ class BusinessCategory extends BaseBusinessPublisher
         return Category::findKeyValue($fields);
     }
 
-    public function getAllCategoryByForGender($condition = [])
+    public function findListByCategoryGroup($id = null, $fields = ['id', 'name'])
     {
-        $r = Category::find()
-            ->select(['for_gender', 'name', 'url_key', 'id'])
-            ->andWhere($condition)
-            ->all();
-        if (!empty($r)){
-            return ArraySimple::makeKeyPathRecursive($r, ['for_gender']);
-        }
-        return null;
+        return Category::find()->select($fields)->andWhere(['category_group_id' => $id])->asArray()->all();
     }
+
+    public function findAllJoinCategoryGroup()
+    {
+        return CategoryGroup::find()->joinWith('categories')->asArray()->all();
+    }
+
 }

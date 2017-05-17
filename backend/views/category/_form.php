@@ -28,7 +28,7 @@ use common\modules\file\widgets\FileUploadWidget;
 
                     <?= $form->field($model, 'url_key')->textInput(['id' => '_slug']) ?>
 
-                    <?= $form->field($model, 'desc')->textarea(['class' => 'ckeditor']) ?>
+                    <?= $form->field($model, 'notes')->textarea(['class' => 'ckeditor']) ?>
 
                     <?= $form->field($model, 'priority')->textInput(['type' => 'number']) ?>
 
@@ -42,8 +42,6 @@ use common\modules\file\widgets\FileUploadWidget;
                             'accept' => 'image/*',
                         ],
                     ]) ?>
-
-                    <?= $form->field($model, 'for_gender')->dropDownList(BusinessCategory::forGenders()) ?>
 
                     <?= $form->field($model, 'status')->dropDownList(Common::getStatusArr()) ?>
 

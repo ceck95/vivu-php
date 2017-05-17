@@ -25,17 +25,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'cover_image_path:imageGrid',
             'name',
             'url_key',
-            'for_gender' => [
-                'attribute' => 'for_gender',
-                'format' => 'raw',
-                'filter' => Html::activeDropDownList($searchModel, 'for_gender', BusinessCategory::forGenders(), [
-                    'class' => 'form-control',
-                    'prompt' => Yii::t('app', 'All')
-                ]),
-                'value' => function (CategorySearch $model) {
-                    return BusinessCategory::forGenders($model->for_gender);
-                }
-            ],
             'created_at:datetime',
             'status' => Html::getStatusSearchForIndex($searchModel),
 

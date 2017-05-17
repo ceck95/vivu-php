@@ -2,64 +2,53 @@
 
 namespace common\models;
 
-use common\core\web\mvc\BaseModel;
 use Yii;
+use \common\core\web\mvc\BaseModel;
+
 
 /**
  * @property integer $id
  * @property string $name
- * @property string $desc
+ * @property integer $priority
+ * @property string $notes
  * @property string $url_key
  * @property string $meta_desc
- * @property string $cover_image_path
- * @property string $for_gender
- * @property string $created_at
- * @property string $updated_at
- * @property integer $created_by
- * @property integer $updated_by
  * @property integer $status
+ * @property string $created_at
+ * @property integer $created_by
+ * @property string $updated_at
+ * @property integer $updated_by
+ * @property integer $category_group_id
+ * @property string $cover_image_path
  */
 class Category extends BaseModel
 {
-    const FOR_MEN = 'men';
-    const FOR_WOMEN = 'women';
-    
-    /**
-     * @inheritdoc
-     */
     public static function tableName()
     {
-        return 'category';
+        return 'vv.category';
     }
 
-    /**
-     * @inheritdoc
-     */
     public function rules()
     {
         return [
-            [['desc'], 'string'],
-            [['name'], 'required'],
+            [['name', 'priority', 'url_key'], 'required'],
+            [['name', 'notes', 'url_key', 'meta_desc', 'cover_image_path'], 'string'],
+            [['priority', 'status', 'created_by', 'updated_by', 'category_group_id'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
-            [['created_by', 'updated_by', 'status', 'priority'], 'integer'],
-            [['name', 'url_key', 'meta_desc', 'cover_image_path'], 'string', 'max' => 255],
-            [['for_gender'], 'string', 'max' => 45],
+            [['category_group_id'], 'exist', 'skipOnError' => true, 'targetClass' => CategoryGroup::className(), 'targetAttribute' => ['category_group_id' => 'id']],
         ];
     }
 
-    /**
-     * @inheritdoc
-     */
     public function attributeLabels()
     {
         $attrs = [
             'name' => Yii::t('app', 'Name'),
             'priority' => Yii::t('app', 'Priority'),
-            'desc' => Yii::t('app', 'Desc'),
+            'notes' => Yii::t('app', 'Notes'),
             'url_key' => Yii::t('app', 'Url Key'),
             'meta_desc' => Yii::t('app', 'Meta Desc'),
-            'cover_image_path' => Yii::t('app', 'Cover Image'),
-            'for_gender' => Yii::t('app', 'For Gender'),
+            'category_group_id' => Yii::t('app', 'Category Group'),
+            'cover_image_path' => Yii::t('app', 'Cover Image Path'),
         ];
         return array_merge($attrs, parent::attributeLabels());
     }

@@ -12,6 +12,7 @@ use common\controllers\CommonBaseController;
 use common\modules\adminUser\business\BusinessAdminUser;
 use common\Factory;
 use common\utilities\Common;
+use yii\helpers\Url;
 
 class BackendBaseController extends CommonBaseController
 {
@@ -29,6 +30,7 @@ class BackendBaseController extends CommonBaseController
             'STATUS_HIDE'      => STATUS_HIDE,
             'STATUS_ACTIVE'    => STATUS_ACTIVE,
             'messages'          => Factory::$app->getAppMessages(),
+            'urlHome' => Url::home(),
             'APP_ENV' => YII_ENV
         ]);
         parent::init();

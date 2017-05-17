@@ -3,9 +3,9 @@
 namespace backend\controllers;
 
 use backend\business\BusinessCategory;
+use backend\business\BusinessCategoryGroup;
 use common\Factory;
-use common\models\Product;
-use common\models\ProductColorPreviewImage;
+use frontend\business\BusinessQuoteItem;
 use Yii;
 use backend\business\BusinessProduct;
 use backend\models\ProductSearch;
@@ -18,10 +18,15 @@ class ProductController extends BackendBaseController
     /** @var BusinessCategory */
     private $businessCategory;
 
+    /** @var BusinessCategoryGroup */
+    private $businessCategoryGroup;
+
+
     public function init()
     {
         $this->business = BusinessProduct::getInstance();
         $this->businessCategory = BusinessCategory::getInstance();
+        $this->businessCategoryGroup = BusinessCategoryGroup::getInstance();
         parent::init();
     }
 
@@ -29,12 +34,23 @@ class ProductController extends BackendBaseController
     {
         $searchModel = new ProductSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $categoryList = $this->businessCategory->findCategoryList();
+        $categoryList = $this->businessCategory->findAllJoinCategoryGroup();
+        $respCategoryList = [];
+        foreach ($categoryList as $value) {
+            if (count($value['categories']) > 0) {
+                $arrayCategory = [];
+                foreach ($value['categories'] as $a) {
+                    $arrayCategory[$a['id']] = $a['name'];
+                }
+
+                $respCategoryList[$value['name']] = $arrayCategory;
+            }
+        }
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'categoryList' => $categoryList->toArray(),
+            'categoryList' => $respCategoryList,
         ]);
     }
 
@@ -49,10 +65,19 @@ class ProductController extends BackendBaseController
     {
         $model = $this->business->newModel();
         $categoryList = $this->businessCategory->findCategoryList();
+        $categoryGroupList = $this->businessCategoryGroup->findCategoryGroupList();
+
         $postObject = $this->getPostObject('Product');
+
         if (!$postObject->isEmpty()) {
+
             $createStatus = $this->business->create($model, $postObject);
-            if ($createStatus === true) {
+
+            if (!$postObject->is_product_color) {
+                $this->business->createProductColorForProuctNotColor($createStatus);
+            }
+
+            if (!empty($createStatus->toArray())) {
                 flassSuccess();
 
                 return $this->redirect(['index']);
@@ -64,13 +89,15 @@ class ProductController extends BackendBaseController
         return $this->render('create', [
             'model' => $model,
             'categoryList' => $categoryList->toArray(),
+            'categoryGroupList' => $categoryGroupList->toArray()
         ]);
     }
 
     public function actionUpdate($id)
     {
         $model = $this->business->findModel($id);
-        $categoryList = $this->businessCategory->findCategoryList();
+        $categoryGroupList = $this->businessCategoryGroup->findCategoryGroupList();
+
         $postObject = $this->getPostObject('Product');
         if (!$postObject->isEmpty()) {
             $updateStatus = $this->business->update($model, $postObject);
@@ -83,9 +110,14 @@ class ProductController extends BackendBaseController
             }
         }
 
+        $this->addJsParams([
+            'categoryId' => $model->category->id,
+            'categoryGroupId' => $model->category->category_group_id
+        ]);
+
         return $this->render('update', [
             'model' => $model,
-            'categoryList' => $categoryList->toArray(),
+            'categoryGroupList' => $categoryGroupList->toArray(),
         ]);
     }
 
@@ -131,9 +163,13 @@ class ProductController extends BackendBaseController
         $storedPreviewImages = $this->business->findStoredProductColorPreviewImages($productColor);
         $productColorPostData = $this->getPostObject('ProductColor');
         $productColorPreviewImage = $this->business->newProductColorPreviewImage($productColor);
+        if (!$this->getPostObject()->isEmpty()) {
+            if (!$productColorPostData->isEmpty()) {
+                $status = $this->business->saveProductColor($productColor, $productColorPostData);
+            } else {
+                $status = true;
+            }
 
-        if (!$productColorPostData->isEmpty()) {
-            $status = $this->business->saveProductColor($productColor, $productColorPostData);
             if ($status) {
                 if ($this->business->createProductColorPreviewImages($productColor, $productColorPreviewImage)) {
                     flassSuccess();
@@ -145,6 +181,7 @@ class ProductController extends BackendBaseController
                 flassError();
             }
         }
+
         $this->setVars([
             'product' => $productColor->product,
             'productColor' => $productColor,

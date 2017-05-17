@@ -39,7 +39,7 @@ class CategoryController extends BackendBaseController
 
     public function actionCreate()
     {
-        $model      = $this->business->newModel();
+        $model = $this->business->newModel();
         $postObject = $this->getPostObject('Category');
 
         if (!$postObject->isEmpty()) {
@@ -58,9 +58,20 @@ class CategoryController extends BackendBaseController
         ]);
     }
 
+    public function actionGetListByCategoryGroupId($id = null)
+    {
+        $listCategory = $this->business->findListByCategoryGroup($id);
+
+        $this->setVars([
+            'categories' => $listCategory
+        ]);
+
+        $this->responseJson();
+    }
+
     public function actionUpdate($id)
     {
-        $model      = $this->business->findModel($id);
+        $model = $this->business->findModel($id);
         $postObject = $this->getPostObject('Category');
         if (!$postObject->isEmpty()) {
             $updateStatus = $this->business->update($model, $postObject);

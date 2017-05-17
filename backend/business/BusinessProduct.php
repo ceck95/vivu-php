@@ -7,6 +7,8 @@ use common\models\DesignProductGroup;
 use common\models\ProductColor;
 use common\models\ProductColorPreviewImage;
 use common\modules\file\business\BusinessFile;
+use common\utilities\ArraySimple;
+use common\utilities\Common;
 use Yii;
 use common\models\Product;
 use common\business\BaseBusinessPublisher;
@@ -25,36 +27,28 @@ class BusinessProduct extends BaseBusinessPublisher
         return self::$_instance;
     }
 
-    public static function types($val = false)
+    public function create(Product $model, ObjectScalar $requestData): Product
     {
-        $arr = [
-            Product::TYPE_DESIGN => Yii::t('app', 'Designable'),
-            Product::TYPE_SIMPLE => Yii::t('app', 'Simple'),
-        ];
-        if ($val !== false) {
-            return isset($arr[$val]) ? $arr[$val] : null;
-        }
+        $requestData = $requestData->toArray();
+        $requestData['search'] = ArraySimple::toStringArrayInsertPostgres($requestData['url_key'], '-');
+        $requestData['search_full'] = ArraySimple::toStringArrayInsertPostgres($requestData['name'], ' ');
+        $model->setAttributes($requestData);
 
-        return $arr;
+        $this->save($model);
+        return $model;
     }
 
-    public function create(Product $model, ObjectScalar $requestData) : bool
+    public function update(Product $model, ObjectScalar $requestData): bool
     {
         $model->setAttributes($requestData->toArray());
 
         return $this->save($model);
     }
 
-    public function update(Product $model, ObjectScalar $requestData) : bool
+    public function save(Product $model): bool
     {
-        $model->setAttributes($requestData->toArray());
+        $status = $model->save(false);
 
-        return $this->save($model);
-    }
-
-    public function save(Product $model) : bool
-    {
-        $status = $model->save($model);
         if ($status) {
             BusinessFile::getInstance()->doUploadAndSave($model, [], ['image_path' => $model->name]);
         }
@@ -66,14 +60,14 @@ class BusinessProduct extends BaseBusinessPublisher
         return new Product();
     }
 
-    public function findModel($id) : Product
+    public function findModel($id): Product
     {
         $model = Product::findOneOrFail($id);
 
         return $model;
     }
 
-    public function delete(Product $product) : bool
+    public function delete(Product $product): bool
     {
         $productColors = $this->findProductColors($product);
         foreach ($productColors as $productColor) {
@@ -92,12 +86,24 @@ class BusinessProduct extends BaseBusinessPublisher
         ]);
     }
 
+    public function createProductColorForProuctNotColor(Product $product)
+    {
+        $model = new ProductColor();
+        $model->setAttributes([
+            'product_id' => $product->id,
+            'price' => ProductColor::PRICE_NOT_COLOR,
+            'priority' => ProductColor::PRIORITY_NOT_COLOR
+        ]);
+
+        return $model->save(false);
+    }
+
     public function saveProductColor(ProductColor $productColor, ObjectScalar $postData)
     {
         $productColor->setAttributes($postData->toArray());
         $status = $productColor->save();
         if ($status) {
-            BusinessFile::getInstance()->doUploadAndSave($productColor, [], ['refer_product_image_path' => $productColor->color_name]);
+            BusinessFile::getInstance()->doUploadAndSave($productColor, [], ['refer_product_image_path' => $productColor->id]);
         }
         return $status;
     }
@@ -108,11 +114,11 @@ class BusinessProduct extends BaseBusinessPublisher
             'product_color_id' => $productColor->id,
         ]);
     }
-    
+
     public function createProductColorPreviewImages(ProductColor $productColor, ProductColorPreviewImage $previewImage)
     {
         if ($previewImage->save()) {
-            BusinessFile::getInstance()->doUploadAndSave($previewImage, [], ['path' => $productColor->color_name . time()]);
+            BusinessFile::getInstance()->doUploadAndSave($previewImage, [], ['path' => $productColor->id . time()]);
         }
         return true;
 
@@ -123,7 +129,7 @@ class BusinessProduct extends BaseBusinessPublisher
         return $product->productColors;
     }
 
-    public function findOneOrFailProductColor($productColorId) : ProductColor
+    public function findOneOrFailProductColor($productColorId): ProductColor
     {
         return ProductColor::findOneOrFail($productColorId);
     }
@@ -134,7 +140,7 @@ class BusinessProduct extends BaseBusinessPublisher
         return $productColor->delete();
     }
 
-    public function findOneOrFailProductColorPreviewImage($id) : ProductColorPreviewImage
+    public function findOneOrFailProductColorPreviewImage($id): ProductColorPreviewImage
     {
         return ProductColorPreviewImage::findOneOrFail($id);
     }
@@ -143,7 +149,7 @@ class BusinessProduct extends BaseBusinessPublisher
     {
         return $productColor->productColorPreviewImages;
     }
-    
+
     /* DESIGN PRODUCTS */
 
     public function newDesignProductGroup(Product $product)
@@ -154,7 +160,7 @@ class BusinessProduct extends BaseBusinessPublisher
         ]);
     }
 
-    public function findOneOrFailDesignProductGroup($designProductGroupId) : DesignProductGroup
+    public function findOneOrFailDesignProductGroup($designProductGroupId): DesignProductGroup
     {
         return DesignProductGroup::findOneOrFail($designProductGroupId);
     }
@@ -170,12 +176,13 @@ class BusinessProduct extends BaseBusinessPublisher
         return $product->designProductGroups;
     }
 
-    public function deleteDesignProductGroup(DesignProductGroup $productGroup){
+    public function deleteDesignProductGroup(DesignProductGroup $productGroup)
+    {
         DesignProductDetail::deleteAll(['product_group_id' => $productGroup->id]);
         return $productGroup->delete();
     }
 
-    public function findOrNewDesignProductDetail(DesignProductGroup $productGroup, $designProductDetailId = null) : DesignProductDetail
+    public function findOrNewDesignProductDetail(DesignProductGroup $productGroup, $designProductDetailId = null): DesignProductDetail
     {
         $productDetail = DesignProductDetail::findOneOrNew($designProductDetailId);
         if ($productDetail->isNewRecord) {
@@ -189,7 +196,8 @@ class BusinessProduct extends BaseBusinessPublisher
         return DesignProductDetail::findOneOrFail($id);
     }
 
-    public function deleteDesignProductDetail(DesignProductDetail $productDetail){
+    public function deleteDesignProductDetail(DesignProductDetail $productDetail)
+    {
         return $productDetail->delete();
     }
 
@@ -207,5 +215,5 @@ class BusinessProduct extends BaseBusinessPublisher
         }
         return $status;
     }
-    
+
 }

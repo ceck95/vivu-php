@@ -48,7 +48,7 @@ class User extends BaseModel implements IdentityInterface, ObjectInterface
      */
     public static function tableName()
     {
-        return 'adminuser_user';
+        return 'adminuser.user';
     }
 
     /**

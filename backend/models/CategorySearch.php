@@ -27,10 +27,9 @@ class CategorySearch extends Category
         $query->andFilterCompare('created_at', $this->created_at, '=');
 
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'desc', $this->desc])
+            ->andFilterWhere(['like', 'notes', $this->notes])
             ->andFilterWhere(['like', 'url_key', $this->url_key])
-            ->andFilterWhere(['like', 'meta_desc', $this->meta_desc])
-            ->andFilterWhere(['like', 'for_gender', $this->for_gender]);
+            ->andFilterWhere(['like', 'meta_desc', $this->meta_desc]);
 
         return $dataProvider;
     }

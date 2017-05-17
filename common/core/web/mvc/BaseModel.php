@@ -20,7 +20,7 @@ use yii\db\ActiveRecord;
 use yii\db\Schema;
 use yii\web\NotFoundHttpException;
 
-class BaseModel extends ActiveRecord implements ObjectInterface
+class  BaseModel extends ActiveRecord implements ObjectInterface
 {
     public function isEmpty()
     {
@@ -39,10 +39,10 @@ class BaseModel extends ActiveRecord implements ObjectInterface
                 if (in_array($columnsSchemas[$attr]->dbType, ['jsonb', 'json'])) {
                     unset($values[$attr]);
                 }
-                if ($columnsSchemas[$attr]->dbType[0] == '_') {
-                    //array
-                    unset($values[$attr]);
-                }
+//                if ($columnsSchemas[$attr]->dbType[0] == '_') {
+//                    //array
+//                    unset($values[$attr]);
+//                }
                 if ($columnsSchemas[$attr]->type == Schema::TYPE_TIMESTAMP) {
                     $dateObject = \DateTime::createFromFormat(BaseFormatter::PHP_DATETIME_FORMAT, $values[$attr]);
                     if (!$dateObject) {
@@ -60,6 +60,7 @@ class BaseModel extends ActiveRecord implements ObjectInterface
                 $this->{$attr} = $value;
             }
         }
+
 
         return parent::setAttributes($values, $safeOnly);
     }

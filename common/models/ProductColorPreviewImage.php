@@ -8,7 +8,7 @@ use Yii;
 /**
  * @property integer $id
  * @property integer $product_color_id
- * @property string $path
+ * @property string $image_path
  * @property string $created_at
  * @property string $updated_at
  * @property integer $created_by
@@ -22,7 +22,7 @@ class ProductColorPreviewImage extends BaseModel
      */
     public static function tableName()
     {
-        return 'product_color_preview_image';
+        return 'vv.product_color_preview_image';
     }
 
     /**
@@ -34,7 +34,7 @@ class ProductColorPreviewImage extends BaseModel
             [['product_color_id'], 'required'],
             [['product_color_id', 'created_by', 'updated_by', 'status'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
-            [['path'], 'string', 'max' => 255],
+            [['image_path'], 'string', 'max' => 255],
             [['product_color_id'], 'exist', 'skipOnError' => true, 'targetClass' => ProductColor::className(), 'targetAttribute' => ['product_color_id' => 'id']],
         ];
     }
@@ -47,7 +47,7 @@ class ProductColorPreviewImage extends BaseModel
         $attrs = [
             'id' => Yii::t('app', 'ID'),
             'product_color_id' => Yii::t('app', 'Product Color'),
-            'path' => Yii::t('app', 'Product Preview Image For Color'),
+            'image_path' => Yii::t('app', 'Product Preview Image For Color'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
             'created_by' => Yii::t('app', 'Created By'),

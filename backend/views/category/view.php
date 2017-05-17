@@ -30,11 +30,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         'model' => $model,
                         'attributes' => [
                             'name',
-                            'desc:raw',
+                            'notes:raw',
                             'url_key:url',
                             'meta_desc',
                             'cover_image_path:imageView',
-                            'for_gender' => ['value' => BusinessCategory::forGenders($model->for_gender)],
                             'created_at',
                             'updated_at',
                             'created_by',

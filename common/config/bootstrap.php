@@ -13,4 +13,4 @@ define('STATUS_HIDE', 2);//hide
 
 define('THUMBNAIL_SIZE_200x200', '200x200');
 
-define('ITEM_PER_PAGE', 100);
+define('ITEM_PER_PAGE', 20);

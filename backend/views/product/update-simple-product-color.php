@@ -14,29 +14,32 @@ use common\helpers\Html;
 use common\core\web\mvc\form\BaseActiveForm;
 use common\modules\file\widgets\FileUploadWidget;
 
-$this->title = Yii::t('app', 'Update Product Color:') . ' ' . $productColor->color_name;
+if ($product->is_product_color) {
+    $this->title = Yii::t('app', 'Update Product Color:') . ' ' . $productColor->color_name;
+    $this->params['breadcrumbs'][] = $productColor->color_name;
+    $this->params['breadcrumbs'][] = ['label' => $product->name, 'url' => ['manage-simple-product', 'id' => $product->id]];
+}
+$this->title = Yii::t('app', 'Update Product Color Image Previews');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Products'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $product->name, 'url' => ['manage-simple-product', 'id' => $product->id]];
-$this->params['breadcrumbs'][] = $productColor->color_name;
 ?>
 
-<?php \yii\widgets\Pjax::begin(); ?>
 <?php $form = BaseActiveForm::beginMultipart(); ?>
 
 <div class="product-create">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <div class="panel-title"><?= Yii::t('app', 'Product Color Infos'); ?></div>
-                </div>
-                <div class="panel-body">
-                    <?= $this->render('_product_color_form', ['form' => $form]); ?>
+    <?php if ($product->is_product_color): ?>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <div class="panel-title"><?= Yii::t('app', 'Product Color Infos'); ?></div>
+                    </div>
+                    <div class="panel-body">
+                        <?= $this->render('_product_color_form', ['form' => $form]); ?>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
+    <?php endif; ?>
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-info">
@@ -56,7 +59,7 @@ $this->params['breadcrumbs'][] = $productColor->color_name;
                             <tbody>
                             <?php foreach ($storedPreviewImages as $storedPreviewImage) : ?>
                                 <tr>
-                                    <td><?= Factory::$app->formatter->asImageView($storedPreviewImage->path) ?></td>
+                                    <td><?= Factory::$app->formatter->asImageView($storedPreviewImage->image_path) ?></td>
                                     <td><?= Factory::$app->formatter->asDatetime($storedPreviewImage->updated_at) ?></td>
                                     <td>
                                         <?= Html::a('<i class="fa fa-trash"></i>', ['/product/delete-product-color-preview-image', 'id' => $storedPreviewImage->id], ['class' => 'btn btn-sm btn-danger']) ?>
@@ -74,7 +77,7 @@ $this->params['breadcrumbs'][] = $productColor->color_name;
                     <?= FileUploadWidget::widget([
                         'form' => $form,
                         'sourceModel' => $productColorPreviewImage,
-                        'attr' => 'path',
+                        'attr' => 'image_path',
                         'options' => [
                             'accept' => 'image/*',
                         ],
@@ -86,10 +89,9 @@ $this->params['breadcrumbs'][] = $productColor->color_name;
     </div>
 </div>
 
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Save All'), [
-            'class' => 'btn btn-success',
-        ]) ?>
-    </div>
+<div class="form-group">
+    <?= Html::submitButton(Yii::t('app', 'Save All'), [
+        'class' => 'btn btn-success',
+    ]) ?>
+</div>
 <?php BaseActiveForm::end(); ?>
-<?php \yii\widgets\Pjax::end(); ?>

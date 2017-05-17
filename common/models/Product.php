@@ -10,18 +10,16 @@ use Yii;
  * @property integer $category_id
  * @property string $name
  * @property string $sku
- * @property integer $is_featured
- * @property integer $is_special
- * @property string $type
- * @property string $desc
- * @property string $about
+ * @property string $notes
  * @property string $url_key
  * @property string $meta_desc
- * @property string $size_info
  * @property string $warranty_note
  * @property string $image_path
  * @property string $base_price
+ * @property string $search
+ * @property string $search_full
  * @property integer $is_sold_out
+ * @property integer $is_product_color
  * @property string $created_at
  * @property string $updated_at
  * @property integer $created_by
@@ -31,33 +29,15 @@ use Yii;
  * @property Category $category
  * @property ProductColor[] $productColors
  * @property ProductColorPreviewImage[] $productColorPreviewImages
- * @property DesignProductGroup[] $designProductGroups
- * @property DesignProductDetail[] $designProductDetails
  */
 class Product extends BaseModel
 {
-    const TYPE_DESIGN = 'design';
-    const TYPE_SIMPLE = 'simple';
-
-    public static function types($val = false)
-    {
-        $arr = [
-            Product::TYPE_DESIGN => Yii::t('app', 'Designable'),
-            Product::TYPE_SIMPLE => Yii::t('app', 'Simple'),
-        ];
-        if ($val !== false) {
-            return isset($arr[$val]) ? $arr[$val] : null;
-        }
-
-        return $arr;
-    }
-
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'product';
+        return 'vv.product';
     }
 
     /**
@@ -66,13 +46,14 @@ class Product extends BaseModel
     public function rules()
     {
         return [
-            [['category_id', 'is_featured', 'is_special', 'is_sold_out', 'created_by', 'updated_by', 'status'], 'integer'],
-            [['desc', 'about', 'size_info', 'warranty_note'], 'string'],
-            [['name', 'sku'], 'required'],
+            [['category_id', 'is_sold_out', 'is_product_color', 'created_by', 'updated_by', 'status'], 'integer'],
+            [['notes', 'details', 'search', 'search_full'], 'string'],
+            [['name', 'sku', 'is_product_color', 'category_id', 'url_key', 'details', 'image_path', 'base_price'], 'required'],
             [['base_price'], 'number'],
+            [['sku', 'url_key'], 'unique'],
             [['created_at', 'updated_at'], 'safe'],
             [['name', 'url_key', 'meta_desc', 'image_path'], 'string', 'max' => 255],
-            [['sku', 'type'], 'string', 'max' => 45],
+            [['sku'], 'string', 'max' => 45],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
         ];
     }
@@ -88,7 +69,6 @@ class Product extends BaseModel
             'sku' => Yii::t('app', 'Sku'),
             'is_featured' => Yii::t('app', 'Is Featured'),
             'is_special' => Yii::t('app', 'Is Special'),
-            'type' => Yii::t('app', 'Type'),
             'desc' => Yii::t('app', 'Desc'),
             'about' => Yii::t('app', 'About'),
             'url_key' => Yii::t('app', 'Url Key'),
@@ -98,6 +78,8 @@ class Product extends BaseModel
             'image_path' => Yii::t('app', 'Image'),
             'base_price' => Yii::t('app', 'Base Price'),
             'is_sold_out' => Yii::t('app', 'Is Sold Out'),
+            'search' => Yii::t('app', 'Search'),
+            'search_full' => Yii::t('app', 'Search Full')
         ];
         return array_merge($attrs, parent::attributeLabels());
     }
@@ -117,16 +99,4 @@ class Product extends BaseModel
         return $this->hasMany(ProductColorPreviewImage::className(), ['product_color_id' => 'id'])
             ->via('productColors');
     }
-
-    public function getDesignProductGroups()
-    {
-        return $this->hasMany(DesignProductGroup::className(), ['product_id' => 'id']);
-    }
-
-    public function getDesignProductDetails()
-    {
-        return $this->hasMany(DesignProductDetail::className(), ['product_group_id' => 'id'])
-            ->via('designProductGroups');
-    }
-
 }

@@ -54,7 +54,7 @@ jQuery(document).ready(function () {
 
 function Admin() {
     var deletingFiles = {};
-    
+
     var addCommonModalAtBottom = function () {
         var htmlModalConfirm =
             '<div class="modal fade" id="modalConfirm" role="dialog">' +
@@ -76,8 +76,8 @@ function Admin() {
 
     this.init = function () {
         $('#_name_for_slug').on('input', function () {
-            var name = $("#_name_for_slug").val();
-            var slug = name.stripViet('-');
+            var name = $("#_name_for_slug").val(),
+                slug = name.stripViet('-');
             $('#_slug').val(slug);
         });
 

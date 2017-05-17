@@ -5,6 +5,7 @@
  * Date 12/17/15
  * Time 2:59 AM
  */
+
 namespace common\utilities;
 
 use common\core\oop\ObjectScalar;
@@ -52,69 +53,66 @@ class ArraySimple
 
     /**
      * Input Sample
-    [
-    0 => [
-    'id' => 2,
-    'name' => 'abc',
-    ],
-    1 => [
-    'id' => 3,
-    'name' => 'def',
-    ]
-    ]
-
+     * [
+     * 0 => [
+     * 'id' => 2,
+     * 'name' => 'abc',
+     * ],
+     * 1 => [
+     * 'id' => 3,
+     * 'name' => 'def',
+     * ]
+     * ]
      * Output Sample
-    [
-    2 => [
-    'id' => 2,
-    'name' => 'abc',
-    ],
-    3 => [
-    'id' => 3,
-    'name' => 'def',
-    ]
-    ]
-
+     * [
+     * 2 => [
+     * 'id' => 2,
+     * 'name' => 'abc',
+     * ],
+     * 3 => [
+     * 'id' => 3,
+     * 'name' => 'def',
+     * ]
+     * ]
      * With $group, Input samle
-    [
-    0 => [
-    'id' => 1,
-    'cate_id' => 10,
-    'name' => 'abc',
-    ],
-    1 => [
-    'id' => 2,
-    'cate_id' => 10,
-    'name' => 'def',
-    ],
-    2 => [
-    'id' => 3,
-    'cate_id' => 5,
-    'name' => 'ghi',
-    ]
-    ]
+     * [
+     * 0 => [
+     * 'id' => 1,
+     * 'cate_id' => 10,
+     * 'name' => 'abc',
+     * ],
+     * 1 => [
+     * 'id' => 2,
+     * 'cate_id' => 10,
+     * 'name' => 'def',
+     * ],
+     * 2 => [
+     * 'id' => 3,
+     * 'cate_id' => 5,
+     * 'name' => 'ghi',
+     * ]
+     * ]
      * Output sample
-    [
-    5 => [
-    0 => [
-    'id' => 3,
-    'cate_id' => 5,
-    'name' => 'ghi',
-    ],
-    10 => [
-    0 => [
-    'id' => 1,
-    'cate_id' => 10,
-    'name' => 'abc',
-    ],
-    1 => [
-    'id' => 2,
-    'cate_id' => 10,
-    'name' => 'abc',
-    ],
-    ],
-    ],
-
+     * [
+     * 5 => [
+     * 0 => [
+     * 'id' => 3,
+     * 'cate_id' => 5,
+     * 'name' => 'ghi',
+     * ],
+     * 10 => [
+     * 0 => [
+     * 'id' => 1,
+     * 'cate_id' => 10,
+     * 'name' => 'abc',
+     * ],
+     * 1 => [
+     * 'id' => 2,
+     * 'cate_id' => 10,
+     * 'name' => 'abc',
+     * ],
+     * ],
+     * ],
      *
      *
      *
@@ -179,15 +177,14 @@ class ArraySimple
 
     /**
      * Input Sample
-    [
-    0 => [
-    'id' => 2,
-    ],
-    1 => [
-    'id' => 3,
-    ]
-    ]
-
+     * [
+     * 0 => [
+     * 'id' => 2,
+     * ],
+     * 1 => [
+     * 'id' => 3,
+     * ]
+     * ]
      * Output Sample [2,3]
      *
      * @param $data
@@ -200,7 +197,7 @@ class ArraySimple
         $in = [];
         foreach ($data as $d) {
             if ($forceString) {
-                $in[] = (string) $d[$field];
+                $in[] = (string)$d[$field];
             } else {
                 $in[] = $d[$field];
             }
@@ -270,6 +267,13 @@ class ArraySimple
             }
         }
         return $arr;
+    }
+
+    public static function toStringArrayInsertPostgres($src, $delimiter = ' ')
+    {
+        $array = explode($delimiter, $src);
+        $str = implode(',', $array);
+        return '{' . $str . '}';
     }
 
 }

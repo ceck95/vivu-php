@@ -1,10 +1,4 @@
 <?php
-/**
- * CreatedBy: thangcest2@gmail.com
- * Date: 12/6/16
- * Time: 5:19 PM
- */
-
 use common\Factory;
 use common\helpers\Html;
 use common\models\ProductColor;
@@ -45,8 +39,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', "Colors Management")]
                             'image_path:imageView',
                             'name:ntext',
                             'sku:ntext',
-                            'base_price:currency',
-                            'type' => ['value' => Product::types($product->type)],
+                            'base_price:currency'
                         ]
                     ]) ?>
                 </div>
@@ -59,7 +52,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', "Colors Management")]
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <div
-                        class="panel-title"><?= Yii::t('app', 'Color of Product & Reference Images, Pricing...'); ?></div>
+                            class="panel-title"><?= Yii::t('app', 'Color of Product & Reference Images, Pricing...'); ?></div>
                 </div>
                 <div class="panel-body">
                     <?php Pjax::begin(); ?>
@@ -79,17 +72,22 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', "Colors Management")]
                             </thead>
                             <tbody>
                             <?php foreach ($storedProductColors as $storedProductColor) : ?>
-                                <tr>
-                                    <td><?= Factory::$app->formatter->asImageView($storedProductColor->refer_product_image_path) ?></td>
-                                    <td><?= $storedProductColor->color_name ?></td>
-                                    <td><?= Factory::$app->formatter->asCurrency($storedProductColor->price) ?></td>
-                                    <td><?= $storedProductColor->priority ?></td>
-                                    <td><?= Factory::$app->formatter->asBoolean($storedProductColor->is_sold_out) ?></td>
-                                    <td><?= Factory::$app->formatter->asStatus($storedProductColor->status) ?></td>
-                                    <td>
-                                        <?= Html::a('<i class="fa fa-edit"></i>', ['/product/update-simple-product-color', 'productColorId' => $storedProductColor->id], ['class' => 'btn btn-sm btn-primary ']) ?>
-                                        <?= Html::a('<i class="fa fa-trash"></i>', ['/product/delete-simple-product-color', 'productColorId' => $storedProductColor->id], ['class' => 'btn btn-sm btn-danger']) ?>
-                                    </td>
+                                <?php if (count($storedProductColor->productColorPreviewImages) === 0): ?>
+                                    <tr class="highlight-common">
+                                <?php else: ?>
+                                    <tr>
+                                <?php endif; ?>
+
+                                <td><?= Factory::$app->formatter->asImageView($storedProductColor->refer_product_image_path) ?></td>
+                                <td><?= $storedProductColor->color_name ?></td>
+                                <td><?= Factory::$app->formatter->asCurrency($storedProductColor->price) ?></td>
+                                <td><?= $storedProductColor->priority ?></td>
+                                <td><?= Factory::$app->formatter->asBoolean($storedProductColor->is_sold_out) ?></td>
+                                <td><?= Factory::$app->formatter->asStatus($storedProductColor->status) ?></td>
+                                <td>
+                                    <?= Html::a('<i class="fa fa-edit"></i>', ['/product/update-simple-product-color', 'productColorId' => $storedProductColor->id], ['class' => 'btn btn-sm btn-primary ']) ?>
+                                    <?= Html::a('<i class="fa fa-trash"></i>', ['/product/delete-simple-product-color', 'productColorId' => $storedProductColor->id], ['class' => 'btn btn-sm btn-danger']) ?>
+                                </td>
                                 </tr>
                             <?php endforeach; ?>
                             </tbody>

@@ -39,20 +39,20 @@ $urls = [
             ],
         ]
     ],
-    'category' => [
+    'category-group' => [
         'icon' => '<i class="fa fa-navicon"></i>',
-        'label' => Yii::t('app', 'Categories'),
-        'viewable' => isset($listProvidedActions['no_value']) && isset($listProvidedActions['no_value']['CategoryController']),
+        'label' => Yii::t('app', 'Category Group'),
+        'viewable' => isset($listProvidedActions['no_value']) && isset($listProvidedActions['no_value']['CategoryGroupController']),
         'submenus' => [
             [
-                'link' => ['/category/index'],
-                'label' => Yii::t('app', 'List Category'),
-                'viewable' => isset($listProvidedActions['no_value']['CategoryController']['Index']),
+                'link' => ['/category-group/index'],
+                'label' => Yii::t('app', 'List Category Group'),
+                'viewable' => isset($listProvidedActions['no_value']['CategoryGroupController']['Index']),
             ],
             [
-                'link' => ['/category/create'],
-                'label' => Yii::t('app', 'Create Category'),
-                'viewable' => isset($listProvidedActions['no_value']['CategoryController']['Create']),
+                'link' => ['/category-group/create'],
+                'label' => Yii::t('app', 'Create Category Group'),
+                'viewable' => isset($listProvidedActions['no_value']['CategoryGroupController']['Create']),
             ],
         ]
     ],
@@ -73,31 +73,36 @@ $urls = [
             ],
         ]
     ],
-    'box' => [
-        'icon' => '<i class="fa fa-credit-card"></i>',
-        'label' => Yii::t('app', 'Box'),
-        'viewable' => isset($listProvidedActions['no_value']) && isset($listProvidedActions['no_value']['BoxController']),
+    'order' => [
+        'icon' => '<i class="fa fa-shopping-cart"></i>',
+        'label' => Yii::t('app', 'Orders'),
+        'viewable' => isset($listProvidedActions['no_value']) && isset($listProvidedActions['no_value']['OrderController']),
         'submenus' => [
             [
-                'link' => ['/box/index'],
-                'label' => Yii::t('app', 'List Box'),
-                'viewable' => isset($listProvidedActions['no_value']['BoxController']['Index']),
+                'link' => ['/order/list-new'],
+                'label' => Yii::t('app', 'List New'),
+                'viewable' => isset($listProvidedActions['no_value']['OrderController']['ListNew'])
             ],
             [
-                'link' => ['/box/create'],
-                'label' => Yii::t('app', 'Create Box'),
-                'viewable' => isset($listProvidedActions['no_value']['BoxController']['Create']),
+                'link' => ['/order/list-accepted'],
+                'label' => Yii::t('app', 'List Accepted'),
+                'viewable' => isset($listProvidedActions['no_value']['OrderController']['ListAccepted'])
             ],
             [
-                'link' => ['/box-item/index'],
-                'label' => Yii::t('app', 'List Box Item'),
-                'viewable' => isset($listProvidedActions['no_value']['BoxItemController']['Index']),
+                'link' => ['/order/list-shipping'],
+                'label' => Yii::t('app', 'List Shipping'),
+                'viewable' => isset($listProvidedActions['no_value']['OrderController']['ListShipping'])
             ],
             [
-                'link' => ['/box-item/create'],
-                'label' => Yii::t('app', 'Create Box Item'),
-                'viewable' => isset($listProvidedActions['no_value']['BoxItemController']['Create']),
+                'link' => ['/order/list-completed'],
+                'label' => Yii::t('app', 'List Completed'),
+                'viewable' => isset($listProvidedActions['no_value']['OrderController']['ListCompleted'])
             ],
+            [
+                'link' => ['/order/list-cancel'],
+                'label' => Yii::t('app', 'List Canel'),
+                'viewable' => isset($listProvidedActions['no_value']['OrderController']['ListCancel'])
+            ]
         ]
     ],
     'tools' => [
@@ -123,25 +128,7 @@ $urls = [
                 'viewable' => isset($listProvidedActions['systemSetting']['DefaultController']) && isset($listProvidedActions['systemSetting']['DefaultController']['Index']),
             ]
         ]
-    ],
-    'article' => [
-        'icon' => '<i class="fa fa-newspaper-o"></i>',
-        'label' => Yii::t('app', 'Article'),
-        'viewable' => isset($listProvidedActions['no_value']) && isset($listProvidedActions['no_value']['ArticleController']),
-        'submenus' => [
-            [
-                'link' => ['/article/index'],
-                'label' => Yii::t('app', 'List Article'),
-                'viewable' => isset($listProvidedActions['no_value']['ArticleController']['Index']),
-            ],
-            [
-                'link' => ['/article/create'],
-                'label' => Yii::t('app', 'Create Article'),
-                'viewable' => isset($listProvidedActions['no_value']['ArticleController']['Create']),
-            ],
-        ]
-    ],
-
+    ]
 ];
 ?>
 
@@ -154,9 +141,9 @@ $urls = [
                              </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> <span class="block m-t-xs"> <strong
-                                        class="font-bold"><?= adminuser()->fullname ?></strong>
+                                            class="font-bold"><?= adminuser()->fullname ?></strong>
                              </span> <span class="text-muted text-xs block"><?= adminuser()->position ?> <b
-                                        class="caret"></b></span> </span> </a>
+                                            class="caret"></b></span> </span> </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
                         <li><a href="<?= Url::to(['/site/profile']) ?>"><?= Yii::t('app', 'Profile'); ?></a></li>
                         <li><a href="#"><?= Yii::t('app', 'Mailbox'); ?></a></li>
@@ -178,7 +165,7 @@ $urls = [
                     <li class="<?= $isActiveIn ? 'active' : null; ?>">
                         <?php if (is_array($urlArray) && isset($urlArray['submenus'])): ?>
                             <a><?= isset($urlArray['icon']) ? $urlArray['icon'] : null ?> <span
-                                    class="nav-label"><?= $urlArray['label']; ?></span>
+                                        class="nav-label"><?= $urlArray['label']; ?></span>
                                 <span class="fa arrow"></span></a>
                             <ul id="<?= $group ?>"
                                 class="nav nav-second-level collapse <?= $isActiveIn ? 'in' : null; ?>">

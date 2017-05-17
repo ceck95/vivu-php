@@ -2,10 +2,10 @@
 return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
-        'session' => [
+     /*   'session' => [
             'class' => 'yii\web\DbSession',
             'timeout' => 1200,
-        ],
+        ],*/
         'cache' => [
             'class' => yii\caching\FileCache::class,
         ],
@@ -35,7 +35,7 @@ return [
                     ],
                 ],
             ],
-        ],
+        ]
     ],
     'modules' => [
         'systemSetting' => [

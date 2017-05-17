@@ -31,7 +31,7 @@ class QuoteItem extends BaseModel
      */
     public static function tableName()
     {
-        return 'quote_item';
+        return 'vv.quote_item';
     }
 
     /**

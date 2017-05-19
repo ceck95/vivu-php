@@ -73,11 +73,10 @@ class ProductController extends BackendBaseController
 
             $createStatus = $this->business->create($model, $postObject);
 
-            if (!$postObject->is_product_color) {
-                $this->business->createProductColorForProuctNotColor($createStatus);
-            }
-
-            if (!empty($createStatus->toArray())) {
+            if (empty($createStatus->getErrors())) {
+                if (!$postObject->is_product_color) {
+                    $this->business->createProductColorForProuctNotColor($createStatus);
+                }
                 flassSuccess();
 
                 return $this->redirect(['index']);
@@ -93,7 +92,8 @@ class ProductController extends BackendBaseController
         ]);
     }
 
-    public function actionUpdate($id)
+    public
+    function actionUpdate($id)
     {
         $model = $this->business->findModel($id);
         $categoryGroupList = $this->businessCategoryGroup->findCategoryGroupList();
@@ -121,7 +121,8 @@ class ProductController extends BackendBaseController
         ]);
     }
 
-    public function actionDelete($id)
+    public
+    function actionDelete($id)
     {
         $product = $this->business->findModel($id);
         $status = $this->business->delete($product);
@@ -134,8 +135,9 @@ class ProductController extends BackendBaseController
         return $this->redirect(['index']);
     }
 
-    //Simple Products & Its Relations
-    public function actionManageSimpleProduct($id)
+//Simple Products & Its Relations
+    public
+    function actionManageSimpleProduct($id)
     {
         $product = $this->business->findModel($id);
         $productColor = $this->business->newProductColor($product);
@@ -157,7 +159,8 @@ class ProductController extends BackendBaseController
         ]);
     }
 
-    public function actionUpdateSimpleProductColor($productColorId)
+    public
+    function actionUpdateSimpleProductColor($productColorId)
     {
         $productColor = $this->business->findOneOrFailProductColor($productColorId);
         $storedPreviewImages = $this->business->findStoredProductColorPreviewImages($productColor);
@@ -190,7 +193,8 @@ class ProductController extends BackendBaseController
         ]);
     }
 
-    public function actionDeleteSimpleProductColor($productColorId)
+    public
+    function actionDeleteSimpleProductColor($productColorId)
     {
         $productColor = $this->business->findOneOrFailProductColor($productColorId);
         if ($this->business->deleteProductColor($productColor)) {
@@ -202,7 +206,8 @@ class ProductController extends BackendBaseController
         return $this->redirect(Factory::$app->request->referrer);
     }
 
-    public function actionDeleteProductColorPreviewImage($id)
+    public
+    function actionDeleteProductColorPreviewImage($id)
     {
         if ($this->business->findOneOrFailProductColorPreviewImage($id)->delete()) {
             flassSuccess();
@@ -212,7 +217,8 @@ class ProductController extends BackendBaseController
         return $this->redirect(Factory::$app->request->referrer);
     }
 
-    public function actionManageDesignProduct($id)
+    public
+    function actionManageDesignProduct($id)
     {
         $product = $this->business->findModel($id);
         $storedDesignProductGroups = $this->business->findStoredDesignProductGroups($product);
@@ -236,7 +242,8 @@ class ProductController extends BackendBaseController
         ]);
     }
 
-    public function actionUpdateDesignProductGroup($designProductGroupId, $designProductDetailId = null)
+    public
+    function actionUpdateDesignProductGroup($designProductGroupId, $designProductDetailId = null)
     {
         $designProductGroup = $this->business->findOneOrFailDesignProductGroup($designProductGroupId);
         $storedDesignProductDetails = $this->business->findStoredDesignProductDetails($designProductGroup);
@@ -270,7 +277,8 @@ class ProductController extends BackendBaseController
         ]);
     }
 
-    public function actionDeleteDesignProductGroup($designProductGroupId)
+    public
+    function actionDeleteDesignProductGroup($designProductGroupId)
     {
         $productGroup = $this->business->findOneOrFailDesignProductGroup($designProductGroupId);
         if ($this->business->deleteDesignProductGroup($productGroup)) {
@@ -282,7 +290,8 @@ class ProductController extends BackendBaseController
         return $this->redirect(Factory::$app->request->referrer);
     }
 
-    public function actionDeleteDesignProductDetail($id)
+    public
+    function actionDeleteDesignProductDetail($id)
     {
         $productDetail = $this->business->findOneOrFailDesignProductDetail($id);
         if ($this->business->deleteDesignProductDetail($productDetail)) {

@@ -32,6 +32,7 @@ class Category extends BaseModel
     {
         return [
             [['name', 'priority', 'url_key'], 'required'],
+            [['url_key'],'unique'],
             [['name', 'notes', 'url_key', 'meta_desc', 'cover_image_path'], 'string'],
             [['priority', 'status', 'created_by', 'updated_by', 'category_group_id'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],

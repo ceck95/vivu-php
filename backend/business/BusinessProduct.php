@@ -47,7 +47,7 @@ class BusinessProduct extends BaseBusinessPublisher
 
     public function save(Product $model): bool
     {
-        $status = $model->save(false);
+        $status = $model->save();
 
         if ($status) {
             BusinessFile::getInstance()->doUploadAndSave($model, [], ['image_path' => $model->name]);

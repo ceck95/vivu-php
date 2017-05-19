@@ -40,7 +40,7 @@ class BusinessCategory extends BaseBusinessPublisher
 
     public function save(Category $model)
     {
-        $status = $model->save($model);
+        $status = $model->save();
         //uncomment if upload file
         if ($status) {
 

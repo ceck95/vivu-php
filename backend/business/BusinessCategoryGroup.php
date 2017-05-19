@@ -44,7 +44,7 @@ class BusinessCategoryGroup extends BaseBusinessPublisher
     
     public function save(CategoryGroup $model)
     {
-        $status = $model->save($model);
+        $status = $model->save();
         //uncomment if upload file
         if ($status) {
             BusinessFile::getInstance()->doUploadAndSave($model, [], ['cover_image_path' => $model->name]);

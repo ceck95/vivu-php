@@ -271,9 +271,12 @@ class ArraySimple
 
     public static function toStringArrayInsertPostgres($src, $delimiter = ' ')
     {
-        $array = explode($delimiter, $src);
+        $a = str_replace(array('\'', '/', '|', '_', '+', '+', '"', '&', '%', '@', '*', '$', '^', '!', '{', '}', '(', ')', ',', ';', ' < ', '>'), ' ', $src);
+        $array = explode($delimiter, $a);
         $str = implode(',', $array);
-        return '{' . $str . '}';
+        $b = preg_replace(' /,+/', ',', rtrim($str, ','));
+        return '{' . $b . '}';
     }
+
 
 }

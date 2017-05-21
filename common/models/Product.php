@@ -48,7 +48,7 @@ class Product extends BaseModel
         return [
             [['category_id', 'is_sold_out', 'is_product_color', 'created_by', 'updated_by', 'status'], 'integer'],
             [['notes', 'details', 'search', 'search_full'], 'string'],
-            [['name', 'sku', 'is_product_color', 'category_id', 'url_key', 'details', 'base_price'], 'required'],
+            [['name', 'sku', 'category_id', 'url_key', 'details', 'base_price'], 'required'],
             [['base_price'], 'number'],
             [['sku', 'url_key'], 'unique'],
             [['created_at', 'updated_at'], 'safe'],

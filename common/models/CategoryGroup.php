@@ -19,6 +19,7 @@ use \common\core\web\mvc\BaseModel;
  * @property string $updated_at
  * @property integer $updated_by
  * @property string $cover_image_path
+ * @property boolean $show_page_home
  * @property Category[] $categories
  */
 class CategoryGroup extends BaseModel
@@ -34,7 +35,7 @@ class CategoryGroup extends BaseModel
             [['name', 'priority', 'url_key'], 'required'],
             [['url_key'],'unique'],
             [['name', 'notes', 'url_key', 'meta_desc', 'cover_image_path'], 'string'],
-            [['priority', 'status', 'created_by', 'updated_by'], 'integer'],
+            [['priority', 'status','show_page_home', 'created_by', 'updated_by'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
         ];
     }
@@ -49,6 +50,7 @@ class CategoryGroup extends BaseModel
             'meta_desc' => Yii::t('app', 'Meta Desc'),
             'category_group_id' => Yii::t('app', 'Category Group Id'),
             'cover_image_path' => Yii::t('app', 'Cover Image Path'),
+            'show_page_home' => Yii::t('app', 'Show Page Home'),
         ];
         return array_merge($attrs, parent::attributeLabels());
     }

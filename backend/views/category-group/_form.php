@@ -6,8 +6,9 @@ use common\utilities\Common;
 use common\core\web\mvc\form\BaseActiveForm;
 
 /**
- * @var $this common\core\web\mvc\View
- * @var $model common\models\CategoryGroup* @var $form common\core\web\mvc\form\BaseActiveForm
+ * @var $this \common\core\web\mvc\View
+ * @var $model \common\models\CategoryGroup
+ * @var $form BaseActiveForm
  */
 ?>
 
@@ -40,6 +41,8 @@ use common\core\web\mvc\form\BaseActiveForm;
                             'accept' => 'image/*',
                         ],
                     ]) ?>
+
+                    <?= $form->field($model, 'show_page_home')->checkbox() ?>
 
                     <?= $form->field($model, 'status')->dropDownList(Common::getStatusArr()) ?>
 

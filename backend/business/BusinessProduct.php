@@ -52,6 +52,7 @@ class BusinessProduct extends BaseBusinessPublisher
         if ($status) {
             BusinessFile::getInstance()->doUploadAndSave($model, [], ['image_path' => $model->name]);
         }
+
         return $status;
     }
 

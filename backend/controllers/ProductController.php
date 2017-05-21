@@ -92,8 +92,7 @@ class ProductController extends BackendBaseController
         ]);
     }
 
-    public
-    function actionUpdate($id)
+    public function actionUpdate($id)
     {
         $model = $this->business->findModel($id);
         $categoryGroupList = $this->businessCategoryGroup->findCategoryGroupList();

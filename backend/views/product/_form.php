@@ -7,9 +7,9 @@ use common\models\Product;
 use common\modules\file\widgets\FileUploadWidget;
 
 /**
- * @var $this common\core\web\mvc\View
- * @var $model common\models\Product
- * @var $form common\core\web\mvc\form\BaseActiveForm
+ * @var $this \common\core\web\mvc\View
+ * @var $model Product
+ * @var $form BaseActiveForm
  * @var $categoryList
  * @var $categoryGroupList
  */
@@ -67,9 +67,7 @@ $this->registerJsFile('@web/js/product.js', ['depends' => [\backend\assets\AppAs
 
                     <?= $form->field($model, 'is_sold_out')->checkbox() ?>
 
-                    <?php if ($model->isNewRecord): ?>
-                        <?= $form->field($model, 'is_product_color')->checkbox() ?>
-                    <?php endif; ?>
+                    <?= $form->field($model, 'is_product_color')->checkbox()->hiddenInput() ?>
 
                     <?= $form->field($model, 'status')->dropDownList(Common::getStatusArr()) ?>
 

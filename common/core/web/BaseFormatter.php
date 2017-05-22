@@ -101,7 +101,7 @@ class BaseFormatter extends Formatter
 
     public function asCurrency($value, $currency = null, $options = [], $textOptions = [])
     {
-        $currency = $currency ?: 'USD';
+        $currency = $currency ?: 'VND';
         return parent::asCurrency($value, $currency, $options, $textOptions);
     }
 

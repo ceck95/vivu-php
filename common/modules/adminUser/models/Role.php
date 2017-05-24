@@ -7,7 +7,6 @@ use Yii;
 
 /**
  * @property integer $id
- * @property string $code
  * @property string $name
  * @property integer $status
  * @property string $created_at
@@ -32,7 +31,7 @@ class Role extends BaseModel
     {
         return [
             [['name'], 'required'],
-            [['name', 'code'], 'string'],
+            [['name'], 'string'],
             [['status', 'created_by', 'updated_by'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
         ];
@@ -44,8 +43,7 @@ class Role extends BaseModel
     public function attributeLabels()
     {
         $labels = [
-            'name' => Yii::t('app', 'Name'),
-            'code' => Yii::t('app', 'Code'),
+            'name' => Yii::t('app', 'Name')
         ];
 
         return array_merge($labels, parent::attributeLabels());

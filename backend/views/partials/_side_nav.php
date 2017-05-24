@@ -128,6 +128,12 @@ $urls = [
                 'viewable' => isset($listProvidedActions['systemSetting']['DefaultController']) && isset($listProvidedActions['systemSetting']['DefaultController']['Index']),
             ]
         ]
+    ],
+    'slide' => [
+        'icon' => '<i class="fa fa-wrench"></i>',
+        'label' => Yii::t('app', 'Slide'),
+        'viewable' => isset($listProvidedActions['slide']),
+        'link' => ['/slide/index']
     ]
 ];
 ?>

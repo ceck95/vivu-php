@@ -32,6 +32,7 @@ class BusinessProduct extends BaseBusinessPublisher
         $requestData = $requestData->toArray();
         $requestData['search'] = ArraySimple::toStringArrayInsertPostgres($requestData['url_key'], '-');
         $requestData['search_full'] = ArraySimple::toStringArrayInsertPostgres($requestData['name'], ' ');
+        $requestData['is_product_color']  = false;
         $model->setAttributes($requestData);
 
         $this->save($model);

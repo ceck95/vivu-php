@@ -1,59 +1,5 @@
 <?php
 return array (
-  'BoxController' => 
-  array (
-    'name' => 'Box',
-    'action' => 
-    array (
-      'Index' => 
-      array (
-        'name' => 'Index',
-      ),
-      'View' => 
-      array (
-        'name' => 'View',
-      ),
-      'Create' => 
-      array (
-        'name' => 'Create',
-      ),
-      'Update' => 
-      array (
-        'name' => 'Update',
-      ),
-      'Delete' => 
-      array (
-        'name' => 'Delete',
-      ),
-    ),
-  ),
-  'BoxItemController' => 
-  array (
-    'name' => 'BoxItem',
-    'action' => 
-    array (
-      'Index' => 
-      array (
-        'name' => 'Index',
-      ),
-      'View' => 
-      array (
-        'name' => 'View',
-      ),
-      'Create' => 
-      array (
-        'name' => 'Create',
-      ),
-      'Update' => 
-      array (
-        'name' => 'Update',
-      ),
-      'Delete' => 
-      array (
-        'name' => 'Delete',
-      ),
-    ),
-  ),
   'CategoryController' => 
   array (
     'name' => 'Category',
@@ -71,6 +17,10 @@ return array (
       array (
         'name' => 'Create',
       ),
+      'GetListByCategoryGroupId' => 
+      array (
+        'name' => 'GetListByCategoryGroupId',
+      ),
       'Update' => 
       array (
         'name' => 'Update',
@@ -78,6 +28,96 @@ return array (
       'Delete' => 
       array (
         'name' => 'Delete',
+      ),
+    ),
+  ),
+  'CategoryGroupController' => 
+  array (
+    'name' => 'CategoryGroup',
+    'action' => 
+    array (
+      'Index' => 
+      array (
+        'name' => 'Index',
+      ),
+      'View' => 
+      array (
+        'name' => 'View',
+      ),
+      'Create' => 
+      array (
+        'name' => 'Create',
+      ),
+      'ManagerCategory' => 
+      array (
+        'name' => 'ManagerCategory',
+      ),
+      'Update' => 
+      array (
+        'name' => 'Update',
+      ),
+      'Delete' => 
+      array (
+        'name' => 'Delete',
+      ),
+    ),
+  ),
+  'OrderController' => 
+  array (
+    'name' => 'Order',
+    'action' => 
+    array (
+      'ListNew' => 
+      array (
+        'name' => 'ListNew',
+      ),
+      'ListAccepted' => 
+      array (
+        'name' => 'ListAccepted',
+      ),
+      'ListShipping' => 
+      array (
+        'name' => 'ListShipping',
+      ),
+      'ListCompleted' => 
+      array (
+        'name' => 'ListCompleted',
+      ),
+      'ListCancel' => 
+      array (
+        'name' => 'ListCancel',
+      ),
+      'View' => 
+      array (
+        'name' => 'View',
+      ),
+      'Create' => 
+      array (
+        'name' => 'Create',
+      ),
+      'Update' => 
+      array (
+        'name' => 'Update',
+      ),
+      'Delete' => 
+      array (
+        'name' => 'Delete',
+      ),
+      'ChangeStatusCancel' => 
+      array (
+        'name' => 'ChangeStatusCancel',
+      ),
+      'ChangeStatusAccepted' => 
+      array (
+        'name' => 'ChangeStatusAccepted',
+      ),
+      'ChangeStatusShipping' => 
+      array (
+        'name' => 'ChangeStatusShipping',
+      ),
+      'ChangeStatusCompleted' => 
+      array (
+        'name' => 'ChangeStatusCompleted',
       ),
     ),
   ),
@@ -126,6 +166,18 @@ return array (
       array (
         'name' => 'ManageDesignProduct',
       ),
+      'UpdateDesignProductGroup' => 
+      array (
+        'name' => 'UpdateDesignProductGroup',
+      ),
+      'DeleteDesignProductGroup' => 
+      array (
+        'name' => 'DeleteDesignProductGroup',
+      ),
+      'DeleteDesignProductDetail' => 
+      array (
+        'name' => 'DeleteDesignProductDetail',
+      ),
     ),
   ),
   'SiteController' => 
@@ -148,6 +200,33 @@ return array (
       'ChangePassword' => 
       array (
         'name' => 'ChangePassword',
+      ),
+    ),
+  ),
+  'SlideController' => 
+  array (
+    'name' => 'Slide',
+    'action' => 
+    array (
+      'Index' => 
+      array (
+        'name' => 'Index',
+      ),
+      'View' => 
+      array (
+        'name' => 'View',
+      ),
+      'Create' => 
+      array (
+        'name' => 'Create',
+      ),
+      'Update' => 
+      array (
+        'name' => 'Update',
+      ),
+      'Delete' => 
+      array (
+        'name' => 'Delete',
       ),
     ),
   ),

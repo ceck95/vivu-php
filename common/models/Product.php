@@ -84,6 +84,12 @@ class Product extends BaseModel
         return array_merge($attrs, parent::attributeLabels());
     }
 
+    public function beforeSave($insert)
+    {
+        $this->is_product_color = false;
+        return parent::beforeSave($insert);
+    }
+
     public function getCategory()
     {
         return $this->hasOne(Category::className(), ['id' => 'category_id']);

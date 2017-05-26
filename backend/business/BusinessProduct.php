@@ -47,7 +47,6 @@ class BusinessProduct extends BaseBusinessPublisher
 
     public function save(Product $model): bool
     {
-        $model->is_product_color = false;
         $status = $model->save();
 
         if ($status) {

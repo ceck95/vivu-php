@@ -79,7 +79,7 @@ class BusinessFile
 
         }
 
-        return $model->save();
+        return $model->save(false);
     }
 
     public function doUploadOneFileForOneAttr(UploadedFile $uploadedFile, $relativeDir, $fileName, $additionalThumbnailOfAttr = [])

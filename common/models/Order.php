@@ -22,6 +22,7 @@ use \common\core\web\mvc\BaseModel;
  * @property integer $created_by
  * @property string $updated_at
  * @property integer $updated_by
+ * @property string $code
  *
  * @property Customer $customer
  * @property CustomerAddress $customerAddress
@@ -52,7 +53,7 @@ class Order extends BaseModel
         return [
             [['order_status', 'quote_id', 'shipping_address_id', 'shipping_amount', 'subtotal', 'grand_total'], 'required'],
             [['order_status', 'customer_id', 'quote_id', 'shipping_address_id', 'status', 'created_by', 'updated_by'], 'integer'],
-            [['customer_full_name', 'customer_phone'], 'string'],
+            [['customer_full_name','code', 'customer_phone'], 'string'],
             [['shipping_amount', 'subtotal', 'grand_total'], 'number'],
             [['created_at', 'updated_at'], 'safe'],
             [['customer_id'], 'exist', 'skipOnError' => true, 'targetClass' => Customer::className(), 'targetAttribute' => ['customer_id' => 'id']],
@@ -73,6 +74,7 @@ class Order extends BaseModel
             'shipping_amount' => Yii::t('app', 'Shipping Amount'),
             'subtotal' => Yii::t('app', 'Subtotal'),
             'grand_total' => Yii::t('app', 'Grand Total'),
+            'code'=>Yii::t('app','Code')
         ];
         return array_merge($attrs, parent::attributeLabels());
     }

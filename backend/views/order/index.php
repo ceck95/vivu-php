@@ -27,6 +27,7 @@ $this->registerJsFile('@web/js/order.js', ['depends' => [\backend\assets\AppAsse
             ['class' => 'yii\grid\SerialColumn'],
 
 //            'id',
+            'code',
             'order_status' => [
                 'attribute' => 'order_status',
                 'value' => function (Order $order) {

@@ -14,8 +14,8 @@ use \common\Factory;
  * @var $orderItems \common\models\OrderItem[]
  */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Orders'), 'url' => ['index']];
+$this->title = '#'.$model->code;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Orders'), 'url' => ['list-new']];
 $this->params['breadcrumbs'][] = $this->title;
 $customerAddress = $model->customerAddress;
 $customer = $model->customer;

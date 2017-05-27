@@ -29,18 +29,22 @@ class BusinessProduct extends BaseBusinessPublisher
 
     public function create(Product $model, ObjectScalar $requestData): Product
     {
-        $requestData = $requestData->toArray();
-        $requestData['search'] = ArraySimple::toStringArrayInsertPostgres($requestData['url_key'], '-');
-        $requestData['search_full'] = ArraySimple::toStringVNArrayInsertPostgres($requestData['name'], ' ');
-        $model->setAttributes($requestData);
+        $model->setAttributes($this->handleDataInput($requestData));
 
         $this->save($model);
         return $model;
     }
 
+    public function handleDataInput(ObjectScalar $data){
+        $requestData = $data->toArray();
+        $requestData['search'] = ArraySimple::toStringArrayInsertPostgres($requestData['url_key'], '-');
+        $requestData['search_full'] = ArraySimple::toStringVNArrayInsertPostgres($requestData['name'], ' ');
+        return $requestData;
+    }
+
     public function update(Product $model, ObjectScalar $requestData): bool
     {
-        $model->setAttributes($requestData->toArray());
+        $model->setAttributes($this->handleDataInput($requestData));
 
         return $this->save($model);
     }

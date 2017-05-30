@@ -46,8 +46,9 @@ class Product extends BaseModel
     public function rules()
     {
         return [
-            [['category_id', 'is_sold_out', 'is_product_color', 'created_by', 'updated_by', 'status'], 'integer'],
+            [['category_id', 'is_sold_out', 'created_by', 'updated_by', 'status'], 'integer'],
             [['notes', 'details', 'search', 'search_full'], 'string'],
+            [['is_product_color'], 'boolean'],
             [['name', 'sku', 'category_id', 'url_key', 'details', 'base_price'], 'required'],
             [['base_price'], 'number'],
             [['sku', 'url_key'], 'unique'],

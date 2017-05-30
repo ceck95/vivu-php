@@ -81,7 +81,7 @@ class ProductController extends BackendBaseController
 
                 return $this->redirect(['index']);
             } else {
-                flassError();
+                flassError($model->getFirstErrorMessage());
             }
         }
 

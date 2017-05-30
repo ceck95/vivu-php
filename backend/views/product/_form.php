@@ -67,8 +67,6 @@ $this->registerJsFile('@web/js/product.js', ['depends' => [\backend\assets\AppAs
 
                     <?= $form->field($model, 'is_sold_out')->checkbox() ?>
 
-                    <?= $form->field($model, 'is_product_color')->checkbox()->hiddenInput() ?>
-
                     <?= $form->field($model, 'status')->dropDownList(Common::getStatusArr()) ?>
 
                 </div>

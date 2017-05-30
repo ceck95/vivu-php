@@ -300,6 +300,7 @@ class ArraySimple
             |Ý|Ỳ|Ỷ|Ỹ|Ỵ';
         $arrayUpper = explode('|',preg_replace("/\n|\t|\r/","",$upper));
         $arrayLower = explode('|',preg_replace("/\n|\t|\r/","",$lower));
+
         $a = str_replace($arrayUpper,$arrayLower,$src);
         $a = str_replace(array('\'', '/', '|', '_', '+', '+', '"', '&', '%', '@', '*', '$', '^', '!', '{', '}', '(', ')', ',', ';', ' < ', '>'), ' ', $a);
         $array = explode($delimiter, $a);

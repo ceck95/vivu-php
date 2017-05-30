@@ -30,12 +30,12 @@ class BusinessProduct extends BaseBusinessPublisher
     public function create(Product $model, ObjectScalar $requestData): Product
     {
         $model->setAttributes($this->handleDataInput($requestData));
-
         $this->save($model);
         return $model;
     }
 
-    public function handleDataInput(ObjectScalar $data){
+    public function handleDataInput(ObjectScalar $data)
+    {
         $requestData = $data->toArray();
         $requestData['search'] = ArraySimple::toStringArrayInsertPostgres($requestData['url_key'], '-');
         $requestData['search_full'] = ArraySimple::toStringVNArrayInsertPostgres($requestData['name'], ' ');

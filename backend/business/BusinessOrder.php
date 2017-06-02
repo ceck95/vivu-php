@@ -142,4 +142,31 @@ class BusinessOrder extends BaseBusinessPublisher
 
     }
 
+    public function getCount()
+    {
+        $orders = Order::find()->asArray()->all();
+        $result = [
+            'new' => 0,
+            'accepted' => 0,
+            'shipping' => 0,
+            'completed' => 0,
+            'cancel' => 0
+        ];
+
+        foreach ($orders as $value) {
+            if ($value['order_status'] === Order::ORDER_STATUS_NEW) {
+                $result['new'] += 1;
+            } elseif ($value['order_status'] === Order::ORDER_STATUS_ACCEPTED) {
+                $result['accepted'] += 1;
+            } elseif ($value['order_status'] === Order::ORDER_STATUS_SHIPPING) {
+                $result['shipping'] += 1;
+            } elseif ($value['order_status'] === Order::ORDER_STATUS_COMPLETED) {
+                $result['completed'] += 1;
+            } elseif ($value['order_status'] === Order::ORDER_STATUS_CANCEL) {
+                $result['cancel'] += 1;
+            }
+        }
+        return $result;
+    }
+
 }

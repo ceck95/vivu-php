@@ -23,6 +23,5 @@ function Order() {
 }
 
 $(document).ready(function () {
-    console.log(PARAMS.listOrderStatus);
     (new Order()).init();
 });

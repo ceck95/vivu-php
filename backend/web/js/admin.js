@@ -82,6 +82,13 @@ function Admin() {
         });
 
         addCommonModalAtBottom();
+        if (Object.keys(PARAMS.countOrder).length > 0) {
+            $('.order-new').text(PARAMS.countOrder.new);
+            $('.order-accepted').text(PARAMS.countOrder.accepted);
+            $('.order-shipping').text(PARAMS.countOrder.shipping);
+            $('.order-completed').text(PARAMS.countOrder.completed);
+            $('.order-cancel').text(PARAMS.countOrder.cancel);
+        }
 
         _body
             .on('click', '.viewInModal', function () {

@@ -80,27 +80,27 @@ $urls = [
         'submenus' => [
             [
                 'link' => ['/order/list-new'],
-                'label' => Yii::t('app', 'List New'),
-                'viewable' => isset($listProvidedActions['no_value']['OrderController']['ListNew'])
+                'label' => Yii::t('app', 'List New <span class="count-order order-new">0</span>'),
+                'viewable' => isset($listProvidedActions['no_value']['OrderController']['ListNew <span>0</span>'])
             ],
             [
                 'link' => ['/order/list-accepted'],
-                'label' => Yii::t('app', 'List Accepted'),
+                'label' => Yii::t('app', 'List Accepted <span class="count-order order-accepted">0</span>'),
                 'viewable' => isset($listProvidedActions['no_value']['OrderController']['ListAccepted'])
             ],
             [
                 'link' => ['/order/list-shipping'],
-                'label' => Yii::t('app', 'List Shipping'),
+                'label' => Yii::t('app', 'List Shipping <span class="count-order order-shipping">0</span>'),
                 'viewable' => isset($listProvidedActions['no_value']['OrderController']['ListShipping'])
             ],
             [
                 'link' => ['/order/list-completed'],
-                'label' => Yii::t('app', 'List Completed'),
+                'label' => Yii::t('app', 'List Completed <span class="count-order order-completed">0</span>'),
                 'viewable' => isset($listProvidedActions['no_value']['OrderController']['ListCompleted'])
             ],
             [
                 'link' => ['/order/list-cancel'],
-                'label' => Yii::t('app', 'List Canel'),
+                'label' => Yii::t('app', 'List Canel <span class="count-order order-cancel">0</span>'),
                 'viewable' => isset($listProvidedActions['no_value']['OrderController']['ListCancel'])
             ]
         ]

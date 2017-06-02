@@ -5,6 +5,7 @@ namespace backend\controllers;
 use backend\business\BusinessCategory;
 use backend\business\BusinessCategoryGroup;
 use common\Factory;
+use common\models\Product;
 use frontend\business\BusinessQuoteItem;
 use Yii;
 use backend\business\BusinessProduct;
@@ -12,6 +13,7 @@ use backend\models\ProductSearch;
 
 class ProductController extends BackendBaseController
 {
+
     /** @var BusinessProduct */
     private $business;
 

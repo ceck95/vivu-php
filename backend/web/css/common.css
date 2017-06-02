@@ -6,3 +6,11 @@ div.alert {
     color: #ed1c24;
     font-weight: bold;
 }
+
+.count-order {
+    background-color: #FF0000;
+    float: right;
+    padding: 2%;
+    border-radius: 50%;
+    color: #ffffff;
+}

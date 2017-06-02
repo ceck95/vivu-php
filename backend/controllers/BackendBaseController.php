@@ -7,6 +7,7 @@
 
 namespace backend\controllers;
 
+use backend\business\BusinessOrder;
 use Yii;
 use common\controllers\CommonBaseController;
 use common\modules\adminUser\business\BusinessAdminUser;
@@ -18,20 +19,21 @@ class BackendBaseController extends CommonBaseController
 {
     public function init()
     {
-        if(isset(Factory::$app->request->cookies['language'])){
+        if (isset(Factory::$app->request->cookies['language'])) {
             Factory::$app->language = Factory::$app->request->cookies['language']->value;
-        }else{
+        } else {
             Factory::$app->language = 'en';
         }
         $params = Common::getStatusArr();
         $this->addJsParams([
             'textActionStatus' => $params,
-            'STATUS_DELETE'    => STATUS_DELETED,
-            'STATUS_HIDE'      => STATUS_HIDE,
-            'STATUS_ACTIVE'    => STATUS_ACTIVE,
-            'messages'          => Factory::$app->getAppMessages(),
+            'STATUS_DELETE' => STATUS_DELETED,
+            'STATUS_HIDE' => STATUS_HIDE,
+            'STATUS_ACTIVE' => STATUS_ACTIVE,
+            'messages' => Factory::$app->getAppMessages(),
             'urlHome' => Url::home(),
-            'APP_ENV' => YII_ENV
+            'APP_ENV' => YII_ENV,
+            'countOrder' => BusinessOrder::getInstance()->getCount()
         ]);
         parent::init();
     }

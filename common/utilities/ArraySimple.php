@@ -301,7 +301,6 @@ class ArraySimple
         $arrayLower = explode('|', preg_replace("/\n|\t|\r/", "", $lower));
 
         $a = str_replace($arrayUpper, $arrayLower, $src);
-        pd($a);
         $a = str_replace(array('\'', '/', '|', '_', '+', '+', '"', '&', '%', '@', '*', '$', '^', '!', '{', '}', '(', ')', ',', ';', ' < ', '>'), ' ', $a);
         $array = explode($delimiter, $a);
         $str = implode(',', $array);

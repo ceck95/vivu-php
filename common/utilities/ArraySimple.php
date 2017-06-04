@@ -280,7 +280,6 @@ class ArraySimple
 
     public static function toStringVNArrayInsertPostgres($src, $delimiter = ' ')
     {
-        $src = 'Nồi Cơm Diện Midea CM06SA (màu trắng)';
         $lower = ' 
             a|b|c|d|đ|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z 
             |á|à|ả|ã|ạ|ă|ắ|ặ|ằ|ẳ|ẵ|â|ấ|ầ|ẩ|ẫ|ậ 
@@ -305,6 +304,7 @@ class ArraySimple
         $array = explode($delimiter, $a);
         $str = implode(',', $array);
         $b = preg_replace(' /,+/', ',', rtrim($str, ','));
+        pd($b);
         return '{' . $b . '}';
     }
 

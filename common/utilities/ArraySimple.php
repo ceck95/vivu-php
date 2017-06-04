@@ -304,7 +304,6 @@ class ArraySimple
         $array = explode($delimiter, $a);
         $str = implode(',', $array);
         $b = preg_replace(' /,+/', ',', rtrim($str, ','));
-        pd($b);
         return '{' . $b . '}';
     }
 

@@ -134,6 +134,12 @@ $urls = [
         'label' => Yii::t('app', 'Slide'),
         'viewable' => isset($listProvidedActions['slide']),
         'link' => ['/slide/index']
+    ],
+    'customer' => [
+        'icon' => '<i class="fa fa-user"></i>',
+        'label' => Yii::t('app', 'Customer'),
+        'viewable' => isset($listProvidedActions['customer']),
+        'link' => ['/customer/index']
     ]
 ];
 ?>

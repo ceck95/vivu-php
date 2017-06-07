@@ -20,9 +20,13 @@ use \common\core\web\mvc\BaseModel;
  * @property integer $created_by
  * @property integer $updated_by
  * @property integer $status
+ *
+ * @property CustomerAddress $addressDefault
  */
 class Customer extends BaseModel
 {
+    public $address;
+
     public static function tableName()
     {
         return 'vv.customer';
@@ -42,14 +46,20 @@ class Customer extends BaseModel
     public function attributeLabels()
     {
         $attrs = [
-                'email' => Yii::t('app', 'Email'),
-                'phone' => Yii::t('app', 'Phone'),
-                'full_name' => Yii::t('app', 'Full Name'),
-                'dob' => Yii::t('app', 'Dob'),
-                'gender' => Yii::t('app', 'Gender'),
-                'password_hash' => Yii::t('app', 'Password Hash'),
-                'password_reset_token' => Yii::t('app', 'Password Reset Token'),
-                                ];
+            'email' => Yii::t('app', 'Email'),
+            'phone' => Yii::t('app', 'Phone'),
+            'full_name' => Yii::t('app', 'Full Name'),
+            'dob' => Yii::t('app', 'Dob'),
+            'gender' => Yii::t('app', 'Gender'),
+            'password_hash' => Yii::t('app', 'Password Hash'),
+            'password_reset_token' => Yii::t('app', 'Password Reset Token'),
+            'address' => 'Address'
+        ];
         return array_merge($attrs, parent::attributeLabels());
+    }
+
+    public function getAddressDefault()
+    {
+        return $this->hasOne(CustomerAddress::className(), ['customer_id' => 'id'])->andOnCondition(['is_default' => true]);
     }
 }

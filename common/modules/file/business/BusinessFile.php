@@ -85,6 +85,7 @@ class BusinessFile
     public function doUploadOneFileForOneAttr(UploadedFile $uploadedFile, $relativeDir, $fileName, $additionalThumbnailOfAttr = [])
     {
         $diskDir = Yii::getAlias('@static') . '/' . $relativeDir;
+        $fileName = str_replace('/', '', $fileName);
         $absPath = $diskDir . '/' . $fileName;
         $relativePath = $relativeDir . '/' . $fileName;
 
@@ -139,7 +140,7 @@ class BusinessFile
         $fileNameArrs = explode('.', $fileName);
         if ((count($fileNameArrs) > 1)) {
             $fileExt = end($fileNameArrs);
-            if(empty($fileName || empty($tmpName) || empty($fileExt || !($size > 0)))){
+            if (empty($fileName || empty($tmpName) || empty($fileExt || !($size > 0)))) {
                 return null;
             }
             if (in_array($fileExt, self::$inputRules['excel'])) {

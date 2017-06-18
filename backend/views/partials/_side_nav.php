@@ -81,7 +81,7 @@ $urls = [
             [
                 'link' => ['/order/list-new'],
                 'label' => Yii::t('app', 'List New <span class="count-order order-new">0</span>'),
-                'viewable' => isset($listProvidedActions['no_value']['OrderController']['ListNew <span>0</span>'])
+                'viewable' => isset($listProvidedActions['no_value']['OrderController']['ListNew'])
             ],
             [
                 'link' => ['/order/list-accepted'],

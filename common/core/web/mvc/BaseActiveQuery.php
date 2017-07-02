@@ -38,7 +38,7 @@ class BaseActiveQuery extends ActiveQuery
 
     public function populateRecord()
     {
-        
+
     }
 
     /**
@@ -80,7 +80,7 @@ class BaseActiveQuery extends ActiveQuery
     public function andFilterWhereLowercase(array $condition)
     {
         if (in_array($condition[0], ['like'])) {
-            return $this->andFilterWhere([$condition[0], "lower({$condition[1]})", strtolower($condition[2])]);
+            return $this->andFilterWhere([$condition[0], $condition[1], strtolower($condition[2])]);
         }
         return $this;
     }
@@ -88,7 +88,7 @@ class BaseActiveQuery extends ActiveQuery
     public function orFilterWhereLowercase(array $condition)
     {
         if (in_array($condition[0], ['like'])) {
-            return $this->orFilterWhere([$condition[0], "lower({$condition[1]})", strtolower($condition[2])]);
+            return $this->orFilterWhere([$condition[0], $condition[1], strtolower($condition[2])]);
         }
         return $this;
     }

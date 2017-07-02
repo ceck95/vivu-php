@@ -423,6 +423,7 @@ class  BaseModel extends ActiveRecord implements ObjectInterface
                 }
             }
         }
+        $query->andWhere(['status' => STATUS_ACTIVE]);
 
         return $query;
     }
@@ -432,7 +433,8 @@ class  BaseModel extends ActiveRecord implements ObjectInterface
         $columnsSchemas = static::getTableSchema()->columns;
         $stringFields = [];
         foreach ($columnsSchemas as $column => $schema) {
-            if ($schema->type == Schema::TYPE_STRING) {
+
+            if ($schema->type == Schema::TYPE_TEXT) {
                 $stringFields[] = $column;
             }
         }

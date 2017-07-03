@@ -14,7 +14,7 @@ use \common\Factory;
  * @var $orderItems \common\models\OrderItem[]
  */
 
-$this->title = '#'.$model->code;
+$this->title = '#' . $model->code;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Orders'), 'url' => ['list-new']];
 $this->params['breadcrumbs'][] = $this->title;
 $customerAddress = $model->customerAddress;
@@ -59,24 +59,20 @@ $orderItems = $model->orderItems;
                 </div>
             </div>
         </div>
-        <?php if (isset($model->customer_id)): ?>
+        <?php if (isset($model->customer->attributes['id'])): ?>
             <div class="col-md-12">
                 <div class="panel panel-info">
                     <div class="panel-heading">
                         <div class="panel-title"><?= Yii::t('app', 'Customer') ?></div>
                     </div>
                     <div class="panel-body">
-                        <?= BaseDetailView::widget([
-                            'model' => $customer,
-                            'attributes' => [
-                                'full_name',
+                        <?= BaseDetailView::widget(['model' => $customer,
+                            'attributes' => ['full_name',
                                 'gender:gender',
                                 'dob:date',
                                 'email',
                                 'phone',
-                                'status'
-                            ],
-                        ]) ?>
+                                'status'],]) ?>
                     </div>
                 </div>
             </div>
@@ -87,18 +83,12 @@ $orderItems = $model->orderItems;
                     <div class="panel-title"><?= Yii::t('app', 'Shipping Address') ?></div>
                 </div>
                 <div class="panel-body">
-                    <?= BaseDetailView::widget([
-                        'model' => $customerAddress,
-                        'attributes' => [
-                            'customer_name',
+                    <?= BaseDetailView::widget(['model' => $customerAddress,
+                        'attributes' => ['customer_name',
                             'phone',
                             'full_name',
-                            'type' => [
-                                'attribute' => 'type',
-                                'value' => \common\helpers\CustomerAddressViewHelper::displayType($customerAddress)
-                            ]
-                        ],
-                    ]) ?>
+                            'type' => ['attribute' => 'type',
+                                'value' => \common\helpers\CustomerAddressViewHelper::displayType($customerAddress)]],]) ?>
                 </div>
             </div>
         </div>

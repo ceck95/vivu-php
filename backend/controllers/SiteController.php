@@ -1,4 +1,5 @@
 <?php
+
 namespace backend\controllers;
 
 use backend\business\BusinessSite;
@@ -40,8 +41,16 @@ class SiteController extends BackendBaseController
         if (Yii::$app->user->isGuest) {
             return $this->redirect(['login']);
         }
-        
-        return $this->render('index');
+
+        $order = $this->business->calculatorOrder();
+        $inCome = $this->business->totalInCome();
+        $totalCustomerAndProduct = $this->business->totalCustomerAndOrderS();
+
+        $this->setVars([
+            'order' => $order,
+            'inCome' => $inCome,
+            'totalCustomerAndProduct' => $totalCustomerAndProduct
+        ]);
     }
 
     public function actionProfile()

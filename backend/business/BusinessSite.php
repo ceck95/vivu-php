@@ -49,7 +49,7 @@ class BusinessSite extends BaseBusinessPublisher
             ->andWhere([
                 'order_status' => $orderStatus
             ])
-            ->andWhere('created_at >= current_date')->asArray()->one();
+            ->andWhere('updated_at >= current_date')->asArray()->one();
 
         return $count['total'];
     }
@@ -103,7 +103,7 @@ class BusinessSite extends BaseBusinessPublisher
 
     public function totalInCome()
     {
-        $monthly = Order::find()->select('SUM(grand_total) as total')->andWhere("date_trunc('month', created_at) = date_trunc('month', current_date)")->andWhere([
+        $monthly = Order::find()->select('SUM(grand_total) as total')->andWhere("date_trunc('month', updated_at) = date_trunc('month', current_date)")->andWhere([
             'order_status' => Order::ORDER_STATUS_COMPLETED
         ])->asArray()->one();
         $total = Order::find()->select('SUM(grand_total) as total')->andWhere([

@@ -132,6 +132,7 @@ class BusinessOrder extends BaseBusinessPublisher
                 'order_id' => $model->id,
                 'order_status' => $status
             ]));
+
             $this->update($model, $post->setData([
                 'order_status' => $status
             ]));

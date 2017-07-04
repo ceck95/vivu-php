@@ -17,7 +17,7 @@ class BaseController extends CommonBaseController
     public function beforeAction($action)
     {
         $view = Factory::$app->view;
-        $view->globalParams['listCategory'] = BusinessCategory::getInstance()->getAllCategoryByForGender();
+//        $view->globalParams['listCategory'] = BusinessCategory::getInstance()->getAllCategoryByForGender();
         return parent::beforeAction($action);
     }
 
